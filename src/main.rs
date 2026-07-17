@@ -148,13 +148,21 @@ fn main() -> eyre::Result<()> {
         std::env::set_var("RUST_BACKTRACE", "1");
     }
 
+    // Initialize the process-wide Firehose tracer. FIRE lines are emitted on stdout; the
+    // engine-tree live path and the pipeline execution stage pick this up via
+    // reth_firehose::is_tracer_initialized().
+    reth_firehose::init_tracer(firehose_tracer::config::Config {
+        chain_client: firehose_tracer::config::ChainClient::Reth,
+        ..Default::default()
+    });
+
     // Initialize bid package queue at startup
     reth_bsc::shared::init_bid_package_queue();
 
     Cli::<BscChainSpecParser, BscCliArgs>::parse().run_with_components::<BscNode>(
         |spec| {
             (
-                BscEvmConfig::new(spec.clone()),
+                reth_firehose::FirehoseEvmConfig::new(BscEvmConfig::new(spec.clone())),
                 Arc::new(BscConsensus::new(spec))
                     as Arc<dyn FullConsensus<BscPrimitives>>,
             )
@@ -448,6 +456,14 @@ fn main() -> eyre::Result<()> {
                         ctx.modules.merge_if_module_configured(RethRpcModule::Eth, eth_config.into_rpc())?;
                         tracing::info!("Succeed to register eth_config (EIP-7910) API");
                         Ok(())
+                    })
+                    .install_exex("firehose", |ctx| async move {
+                        // Box::pin works around a rustc higher-ranked lifetime limitation when
+                        // proving the (deeply generic) run_exex future Send inside this closure.
+                        Ok(Box::pin(reth_firehose::run_exex(ctx))
+                            as std::pin::Pin<
+                                Box<dyn std::future::Future<Output = eyre::Result<()>> + Send>,
+                            >)
                     })
                     .launch().await?;
 

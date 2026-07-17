@@ -35,7 +35,7 @@ pub type BscEngineApiTx = UnboundedSender<
         crate::node::engine_api::payload::BscPayloadTypes,
         crate::BscPrimitives,
         BlockchainProvider<NodeTypesWithDBAdapter<crate::node::BscNode, reth_db::DatabaseEnv>>,
-        crate::node::evm::config::BscEvmConfig,
+        reth_firehose::FirehoseEvmConfig<crate::node::evm::config::BscEvmConfig>,
     >,
 >;
 

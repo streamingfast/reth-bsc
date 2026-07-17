@@ -142,10 +142,13 @@ where
         Storage = crate::node::storage::BscStorage,
     >,
 {
-    type EVM = BscEvmConfig;
+    // Firehose: wrap the BSC EVM config so the pipeline (staged sync) batch executor routes
+    // through FirehoseBlockExecutor. The live engine path hooks execution separately inside
+    // the payload validator; every other ConfigureEvm method delegates to BscEvmConfig.
+    type EVM = reth_firehose::FirehoseEvmConfig<BscEvmConfig>;
 
     async fn build_evm(self, ctx: &BuilderContext<Node>) -> eyre::Result<Self::EVM> {
         let evm_config = BscEvmConfig::bsc(ctx.chain_spec());
-        Ok(evm_config)
+        Ok(reth_firehose::FirehoseEvmConfig::new(evm_config))
     }
 }

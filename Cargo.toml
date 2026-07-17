@@ -16,60 +16,64 @@ name = "reth-bsc"
 path = "src/main.rs"
 
 [dependencies]
-reth = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-cli = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-cli-commands = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-basic-payload-builder = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-db = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-engine-local = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-engine-tree = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-node-builder = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-chainspec = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-cli-util = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-discv4 = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59", features = [
+reth = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-cli = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-cli-commands = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-basic-payload-builder = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-db = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-engine-local = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-engine-tree = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-node-builder = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-chainspec = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-cli-util = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-discv4 = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc", features = [
     "test-utils",
 ] }
-reth-engine-primitives = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-ethereum-forks = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59", features = [
+reth-engine-primitives = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-ethereum-forks = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc", features = [
     "serde",
 ] }
-reth-ethereum-payload-builder = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-payload-builder-primitives = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-chain-state = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-ethereum-primitives = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-eth-wire = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-eth-wire-types = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-evm = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-evm-ethereum = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-execution-types = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-ipc = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-metrics = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-node-core = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-revm = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-network = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59", features = [
+reth-ethereum-payload-builder = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-payload-builder-primitives = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-chain-state = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-ethereum-primitives = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+
+# Firehose
+reth-firehose = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+firehose-tracer = "5"
+reth-eth-wire = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-eth-wire-types = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-evm = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-evm-ethereum = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-execution-types = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-ipc = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-metrics = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-node-core = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-revm = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-network = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc", features = [
     "test-utils",
 ] }
-reth-network-p2p = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-network-api = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-node-ethereum = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59", features = [
+reth-network-p2p = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-network-api = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-node-ethereum = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc", features = [
     "test-utils",
 ] }
-reth-network-peers = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-payload-primitives = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-ethereum-engine-primitives = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
+reth-network-peers = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-payload-primitives = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-ethereum-engine-primitives = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
 reth-primitives-traits = { git = "https://github.com/bnb-chain/reth-core.git", branch = "v0.3.1-v2", default-features = false }
 reth-codecs = { git = "https://github.com/bnb-chain/reth-core.git", branch = "v0.3.1-v2" }
-reth-provider = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59", features = [
+reth-provider = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc", features = [
     "test-utils",
 ] }
-reth-rpc-eth-api = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-rpc-convert = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-rpc-engine-api = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-rpc-server-types = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-trie-common = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-trie-db = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-tasks = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
-reth-transaction-pool = { git = "https://github.com/bnb-chain/reth.git", rev = "0dea17d20f358768ac2d458bef170d8f0ab1df59" }
+reth-rpc-eth-api = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-rpc-convert = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-rpc-engine-api = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-rpc-server-types = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-trie-common = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-trie-db = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-tasks = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
+reth-transaction-pool = { git = "https://github.com/streamingfast/bnb-reth.git", branch = "firehose/0.x-bsc" }
 
 revm = "38.0.0"
 revm-database = "13.0.0"
@@ -250,3 +254,9 @@ strip = false
 
 [dev-dependencies]
 uuid = { version = "1", features = ["v4"] }
+
+[patch.crates-io]
+## Firehose additions
+# SF fork of alloy-evm that routes system calls (EIP-4788, EIP-2935, etc.) through the Inspector.
+# See https://github.com/alloy-rs/evm/pull/323 for the upstream PR.
+alloy-evm = { git = "https://github.com/streamingfast/evm.git", branch = "sf/v0.34.0" }

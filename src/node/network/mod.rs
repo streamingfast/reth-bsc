@@ -349,7 +349,17 @@ impl BscNetworkBuilder {
         // TODO: update network with the latest canonical head, but has a fork id issue, can fix it later.
         let mut network_builder = network_builder
             .boot_nodes(ctx.chain_spec().bootnodes().unwrap_or_default())
-            .set_head(ctx.chain_spec().head())
+            .set_head({
+                // Firehose fork fix: the chain-spec `head()` helpers leave `hash` at the zero
+                // default. eth/69 status advertises that hash and bnb-reth's handshake rejects
+                // zero blockhashes, so a fresh node (still at genesis) could never peer. Fill in
+                // the genesis hash so the advertised head is valid.
+                let mut head = ctx.chain_spec().head();
+                if head.hash.is_zero() {
+                    head.hash = ctx.chain_spec().genesis_hash();
+                }
+                head
+            })
             .with_pow()
             .block_import(Box::new(BscBlockImport::new(handle)))
             .eth_rlpx_handshake(Arc::new(BscHandshake::default()))
