@@ -156,6 +156,23 @@ fn main() -> eyre::Result<()> {
         ..Default::default()
     });
 
+    // BSC-specific tracing behavior (mirrors the geth Firehose reference):
+    // - tx fees (and blob fees) are credited to the consensus SYSTEM_ADDRESS, not the
+    //   block beneficiary; Parlia sweeps them to the validator at finalize time;
+    // - body system transactions are deferred by the block executor and traced by it at
+    //   actual execution time inside finish(), so the generic wrapper must skip them and
+    //   must not wrap finish() in a system-call window.
+    reth_firehose::set_chain_tracing_config(reth_firehose::ChainTracingConfig {
+        fee_recipient: Some(reth_bsc::consensus::SYSTEM_ADDRESS),
+        reward_blob_fee: true,
+        is_deferred_system_tx: |to, max_fee_per_gas, signer, beneficiary| {
+            signer == beneficiary &&
+                max_fee_per_gas == 0 &&
+                to.is_some_and(|to| reth_bsc::is_invoke_system_contract(&to))
+        },
+        trace_finish_in_system_call: false,
+    });
+
     // Initialize bid package queue at startup
     reth_bsc::shared::init_bid_package_queue();
 

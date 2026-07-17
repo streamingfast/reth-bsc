@@ -48,7 +48,10 @@ where
         BlockEnv = BlockEnv,
     >,
     Spec: EthereumHardforks + crate::hardforks::BscHardforks + EthChainSpec + Hardforks + Clone + 'static,
-    R: ReceiptBuilder<Transaction = TransactionSigned, Receipt: TxReceipt>,
+    R: ReceiptBuilder<
+        Transaction = TransactionSigned,
+        Receipt: TxReceipt<Log = alloy_primitives::Log>,
+    >,
     <R as ReceiptBuilder>::Transaction: Unpin + From<TransactionSigned>,
     <EVM as alloy_evm::Evm>::Tx: FromTxWithEncoded<<R as ReceiptBuilder>::Transaction>,
     BscTxEnv: IntoTxEnv<<EVM as alloy_evm::Evm>::Tx>,
@@ -412,7 +415,35 @@ where
         }
         let _precompile_trace_pop_guard = PrecompileTracePopGuard;
 
-        let result_and_state = self.evm.transact(tx_env.into_tx_env()).map_err(BlockExecutionError::other)?;
+        // Firehose: system transactions are traced as ordinary transactions at their actual
+        // execution point (end-of-block finalize), matching the geth reference where the Parlia
+        // engine drives OnTxStart/OnTxEnd around each applied system tx. The generic wrapper
+        // skipped these txs during body iteration (ChainTracingConfig::is_deferred_system_tx).
+        let fh_tx_index = self.receipts.len();
+        let fh_traced = if let Some(signed) = signed_tx.as_ref() {
+            reth_firehose::with_active_tracer(|tracer| {
+                use reth_firehose::mapper::SignatureFields;
+                let (r, sig_s, v) = signed.signature_fields();
+                let event = reth_firehose::mapper::signed_tx_to_tx_event(
+                    signed, sender, fh_tx_index, r, sig_s, v,
+                );
+                tracer.on_tx_start(event, None);
+            })
+            .is_some()
+        } else {
+            false
+        };
+
+        let result_and_state = match self.evm.transact(tx_env.into_tx_env()) {
+            Ok(res) => res,
+            Err(err) => {
+                let err = BlockExecutionError::other(err);
+                if fh_traced {
+                    reth_firehose::with_active_tracer(|tracer| tracer.on_tx_end(None, Some(&err)));
+                }
+                return Err(err);
+            }
+        };
         let ResultAndState { result, state } = result_and_state;
         let mut temp_state = state.clone();
         temp_state.remove(&SYSTEM_ADDRESS);
@@ -428,6 +459,12 @@ where
             use alloy_consensus::TxType;
             signed_tx.as_ref().map(|tx| tx.tx_type()).unwrap_or(TxType::Legacy)
         };
+        // Block-wide log index of this system tx's first log: logs of all prior receipts.
+        let fh_log_index_start: u32 = if fh_traced {
+            self.receipts.iter().map(|r| alloy_consensus::TxReceipt::logs(r).len() as u32).sum()
+        } else {
+            0
+        };
         self.receipts.push(self.receipt_builder.build_receipt(ReceiptBuilderCtx {
             tx_type,
             evm: &self.evm,
@@ -435,6 +472,18 @@ where
             state: &state,
             cumulative_gas_used: self.gas_used,
         }));
+        if fh_traced {
+            let receipt = self.receipts.last().expect("receipt just pushed");
+            let receipt_data = reth_firehose::mapper::to_receipt_data(
+                receipt,
+                fh_tx_index as u32,
+                gas_used,
+                fh_log_index_start,
+                0,
+                None,
+            );
+            reth_firehose::with_active_tracer(|tracer| tracer.on_tx_end(Some(&receipt_data), None));
+        }
         self.evm.db_mut().commit(state);
 
         // Record system contract execution duration
@@ -459,6 +508,17 @@ where
 
         // Zero out SYSTEM_ADDRESS balance
         {
+            // Firehose: this is a direct (non-EVM) state write, invisible to the inspector.
+            // Geth emits it via OnBalanceChange with BalanceDecreaseBSCDistributeReward, which
+            // collapses to REASON_REWARD_TRANSACTION_FEE on the wire.
+            reth_firehose::with_active_tracer(|tracer| {
+                tracer.on_balance_change(
+                    SYSTEM_ADDRESS,
+                    system_info.balance,
+                    U256::ZERO,
+                    firehose_tracer::pb::sf::ethereum::r#type::v2::balance_change::Reason::RewardTransactionFee,
+                );
+            });
             let mut system_account = RevmAccount::from(system_info);
             system_account.mark_touch();
             system_account.info.balance = U256::ZERO;
@@ -474,7 +534,18 @@ where
                 .unwrap_or_default();
             let mut validator_account = RevmAccount::from(validator_info);
             validator_account.mark_touch();
+            let old_balance = validator_account.info.balance;
             validator_account.info.balance = validator_account.info.balance.saturating_add(U256::from(block_reward));
+            // Firehose: counterpart of the SYSTEM_ADDRESS sweep above (geth:
+            // BalanceIncreaseBSCDistributeReward → REASON_REWARD_TRANSACTION_FEE).
+            reth_firehose::with_active_tracer(|tracer| {
+                tracer.on_balance_change(
+                    validator,
+                    old_balance,
+                    validator_account.info.balance,
+                    firehose_tracer::pb::sf::ethereum::r#type::v2::balance_change::Reason::RewardTransactionFee,
+                );
+            });
             let mut changes: EvmState = Default::default();
             changes.insert(validator, validator_account);
             self.evm.db_mut().commit(changes);

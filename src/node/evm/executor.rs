@@ -138,7 +138,10 @@ where
         BlockEnv = revm::context::BlockEnv,
     >,
     Spec: EthereumHardforks + BscHardforks + EthChainSpec + Hardforks + Clone + 'static,
-    R: ReceiptBuilder<Transaction = TransactionSigned, Receipt: TxReceipt>,
+    R: ReceiptBuilder<
+        Transaction = TransactionSigned,
+        Receipt: TxReceipt<Log = alloy_primitives::Log>,
+    >,
     <R as ReceiptBuilder>::Transaction: Unpin + From<TransactionSigned>,
     <EVM as alloy_evm::Evm>::Tx: FromTxWithEncoded<<R as ReceiptBuilder>::Transaction>,
     BscTxEnv: IntoTxEnv<<EVM as alloy_evm::Evm>::Tx>,
@@ -326,6 +329,22 @@ where
     ) -> Result<(), BlockExecutionError> {
         let db = self.evm.db_mut();
         let mut info = db.basic(address).map_err(BlockExecutionError::other)?.unwrap_or_default();
+        // Firehose: this is a direct (non-EVM) code install, invisible to the inspector. Geth
+        // performs the same upgrade via state.SetCode, which fires OnCodeChange.
+        {
+            let old_code_hash = info.code_hash;
+            let old_code = info
+                .code
+                .as_ref()
+                .map(|c| c.original_bytes())
+                .or_else(|| db.code_by_hash(old_code_hash).ok().map(|c| c.original_bytes()))
+                .unwrap_or_default();
+            let new_code = code.original_bytes();
+            let new_code_hash = code.hash_slow();
+            reth_firehose::with_active_tracer(|tracer| {
+                tracer.on_code_change(address, old_code_hash, new_code_hash, &old_code, &new_code);
+            });
+        }
         info.code_hash = code.hash_slow();
         info.code = Some(code);
         let mut account = RevmAccount::from(info);
@@ -366,6 +385,22 @@ where
         );
 
         let mut new_info = old_info.unwrap_or_default();
+        // Firehose: direct (non-EVM) code install; geth's equivalent deploy fires OnCodeChange.
+        {
+            let old_code_hash = new_info.code_hash;
+            let old_code =
+                new_info.code.as_ref().map(|c| c.original_bytes()).unwrap_or_default();
+            let new_code_hash = keccak256(HISTORY_STORAGE_CODE.clone());
+            reth_firehose::with_active_tracer(|tracer| {
+                tracer.on_code_change(
+                    HISTORY_STORAGE_ADDRESS,
+                    old_code_hash,
+                    new_code_hash,
+                    &old_code,
+                    &HISTORY_STORAGE_CODE,
+                );
+            });
+        }
         new_info.code_hash = keccak256(HISTORY_STORAGE_CODE.clone());
         new_info.code = Some(Bytecode::new_raw(Bytes::from_static(&HISTORY_STORAGE_CODE)));
         new_info.nonce = 1_u64;
@@ -395,7 +430,10 @@ where
         BlockEnv = revm::context::BlockEnv,
     >,
     Spec: EthereumHardforks + BscHardforks + EthChainSpec + Hardforks + 'static,
-    R: ReceiptBuilder<Transaction = TransactionSigned, Receipt: TxReceipt>,
+    R: ReceiptBuilder<
+        Transaction = TransactionSigned,
+        Receipt: TxReceipt<Log = alloy_primitives::Log>,
+    >,
     <R as ReceiptBuilder>::Transaction: Unpin + From<TransactionSigned>,
     <E as alloy_evm::Evm>::Tx: FromTxWithEncoded<<R as ReceiptBuilder>::Transaction>,
     BscTxEnv: IntoTxEnv<<E as alloy_evm::Evm>::Tx>,
