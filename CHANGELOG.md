@@ -7,6 +7,16 @@ This changelog covers Firehose-specific changes only. For upstream changes, see 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## v0.1.0-fh-beta-3
+
+### Fixed
+
+- Panic during mainnet sync ("mismatch between call log and receipt log BlockIndex"): system
+  transactions bypass the generic wrapper's per-transaction log accounting, so a log-bearing
+  system tx (e.g. the validator deposit) left the block-wide log counter behind and the next
+  system tx's call logs lagged its receipt logs. The chain executor now reports each system
+  tx's committed log count and the inspector folds it into block-wide log indices.
+
 ## v0.1.0-fh-beta-2
 
 ### Fixed

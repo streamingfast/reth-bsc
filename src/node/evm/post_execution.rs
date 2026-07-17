@@ -483,6 +483,11 @@ where
                 None,
             );
             reth_firehose::with_active_tracer(|tracer| tracer.on_tx_end(Some(&receipt_data), None));
+            // Keep block-wide log indices accurate for later call logs: system txs bypass the
+            // generic wrapper's post-tx log accounting.
+            reth_firehose::add_block_log_offset(
+                alloy_consensus::TxReceipt::logs(receipt).len() as u32,
+            );
         }
         self.evm.db_mut().commit(state);
 
