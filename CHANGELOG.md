@@ -7,6 +7,16 @@ This changelog covers Firehose-specific changes only. For upstream changes, see 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## v0.1.0-fh-beta-2
+
+### Fixed
+
+- Panic during mainnet pipeline sync ("caller expected to be in transaction state"): BSC's
+  internal consensus reads (validator-set / turn-length `eth_call`s) run on the same
+  inspector-carrying EVM as real transactions and fired tracer hooks between transactions.
+  These reads are now executed with Firehose tracing suspended — matching geth, which never
+  traces them.
+
 ## v0.1.0-fh-beta-1
 
 ### Fixed

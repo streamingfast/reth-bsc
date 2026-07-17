@@ -233,6 +233,10 @@ where
             is_system_transaction: true,
         };
 
+        // Firehose: this is internal consensus bookkeeping (validator set / turn length reads),
+        // not part of the block's observable execution — geth never traces these. Suspend the
+        // inspector so the read leaves no trace events and cannot trip the tracer state machine.
+        let _fh_suspend = reth_firehose::suspend_tracing();
         let result_and_state = self.evm.transact(tx_env.into_tx_env()).map_err(BlockExecutionError::other)?;
         if !result_and_state.result.is_success() {
             tracing::error!("Failed to eth call, to: {:?}, data: {:?}", to, data);
