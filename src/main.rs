@@ -171,6 +171,10 @@ fn main() -> eyre::Result<()> {
                 to.is_some_and(|to| reth_bsc::is_invoke_system_contract(&to))
         },
         trace_finish_in_system_call: false,
+        // BSC headers carry a 0 base fee (post-London RLP requirement) but Parlia has no
+        // EIP-1559 base fee; the geth reference emits nil. Map Some(0) -> None so the header
+        // omits the field and dynamic-fee gas_price reports the fee cap (geth tx.GasPrice()).
+        treat_zero_base_fee_as_absent: true,
     });
 
     // Initialize bid package queue at startup

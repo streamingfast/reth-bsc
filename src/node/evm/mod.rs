@@ -22,7 +22,7 @@ use revm::{
         result::{EVMError, HaltReason, ResultAndState},
         BlockEnv, CfgEnv,
     },
-    Context, ExecuteEvm, InspectEvm, Inspector, SystemCallEvm,
+    Context, ExecuteEvm, InspectEvm, InspectSystemCallEvm, Inspector, SystemCallEvm,
 };
 
 mod assembler;
@@ -99,7 +99,16 @@ where
         contract: Address,
         data: Bytes,
     ) -> Result<ResultAndState<Self::HaltReason>, Self::Error> {
-        let result = self.inner.system_call_one_with_caller(caller, contract, data)?;
+        // Route through the inspected variant when tracing is on, mirroring `transact_raw`
+        // (line above). The plain `system_call_one_with_caller` bypasses the inspector, so the
+        // Firehose tracer never sees the call and omits it from the block. geth emits these as
+        // `system_calls` — e.g. the per-block EIP-2935 history-storage update, whose state is
+        // committed either way but only appears in the trace when inspected.
+        let result = if self.inspect {
+            self.inner.inspect_one_system_call_with_caller(caller, contract, data)?
+        } else {
+            self.inner.system_call_one_with_caller(caller, contract, data)?
+        };
         let state = self.finalize();
         Ok(ResultAndState::new(result, state))
     }
