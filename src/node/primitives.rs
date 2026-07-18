@@ -192,12 +192,17 @@ impl Block for BscBlock {
     }
 
     fn rlp_length(header: &Self::Header, body: &Self::Body) -> usize {
+        // Canonical block size: excludes blob sidecars, matching geth's `Block.Size()` /
+        // `eth_getBlock` size and the Firehose `size` field. Sidecars are gossiped/stored
+        // separately and are not part of the canonical block; only `encode()` (used for the
+        // BSC-specific network/storage form) carries them. Note the EIP-7934 `MAX_RLP_BLOCK_SIZE`
+        // check that also consumes `rlp_length` is Osaka-gated and inert on BSC.
         rlp::BlockHelper {
             header: Cow::Borrowed(header),
             transactions: Cow::Borrowed(&body.inner.transactions),
             ommers: Cow::Borrowed(&body.inner.ommers),
             withdrawals: body.inner.withdrawals.as_ref().map(Cow::Borrowed),
-            sidecars: body.sidecars.as_ref().map(Cow::Borrowed),
+            sidecars: None,
         }
         .length()
     }
@@ -596,6 +601,52 @@ mod tests {
         assert_eq!(
             computed_length, actual_length,
             "Computed RLP length should match actual encoded length for empty withdrawals"
+        );
+    }
+
+    #[test]
+    fn test_rlp_length_excludes_sidecars() {
+        // Regression: `rlp_length` is the canonical block size and must NOT count blob sidecars
+        // (geth's `size` / `eth_getBlock` size and the Firehose `size` field exclude them), even
+        // though `encode()` carries them for the BSC network/storage form.
+        use alloy_eips::eip4895::Withdrawals;
+
+        let header = create_test_header();
+        let sidecar = BscBlobTransactionSidecar {
+            inner: BlobTransactionSidecar {
+                blobs: vec![alloy_eips::eip4844::Blob::default()],
+                commitments: vec![alloy_eips::eip4844::Bytes48::default()],
+                proofs: vec![alloy_eips::eip4844::Bytes48::default()],
+            },
+            block_number: 1,
+            block_hash: B256::repeat_byte(0x11),
+            tx_index: 0,
+            tx_hash: B256::repeat_byte(0x22),
+        };
+        let body = BscBlockBody {
+            inner: BlockBody {
+                transactions: vec![],
+                ommers: vec![],
+                withdrawals: Some(Withdrawals::default()),
+            },
+            sidecars: Some(vec![sidecar]),
+        };
+        let body_no_sidecars = BscBlockBody { sidecars: None, ..body.clone() };
+
+        // Canonical size ignores sidecars entirely...
+        assert_eq!(
+            BscBlock::rlp_length(&header, &body),
+            BscBlock::rlp_length(&header, &body_no_sidecars),
+            "rlp_length must not depend on sidecars"
+        );
+
+        // ...and is strictly smaller than the full encoding, which includes the ~128 KiB blob.
+        let block = BscBlock { header: header.clone(), body };
+        let mut buf = Vec::new();
+        block.encode(&mut buf);
+        assert!(
+            BscBlock::rlp_length(&block.header, &block.body) < buf.len(),
+            "rlp_length (canonical) must be smaller than encode() length (with sidecars)"
         );
     }
 
