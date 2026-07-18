@@ -44,6 +44,14 @@ impl EvmFactory for BscEvmFactory {
         input: EvmEnv<BscHardfork>,
         inspector: I,
     ) -> Self::Evm<DB, I> {
-        BscEvm::new(input, db, inspector, true, true)
+        // `trace` enables `fund_beneficiary_for_system_tx_replay`, a stand-in for
+        // `distribute_incoming`'s validator credit that is only correct when replaying a single
+        // transaction against archive state (RPC debug_trace, which wraps the DB in CacheDB).
+        // Full-block execution — including the Firehose inspector path — runs `distribute_incoming`
+        // itself, so funding again double-credits the validator and shows up as a phantom GAS_BUY
+        // on the validator in the Firehose trace. Gate on the same CacheDB heuristic as `create_evm`
+        // so only the single-tx replay path funds.
+        let is_trace = std::any::type_name::<DB>().contains("CacheDB");
+        BscEvm::new(input, db, inspector, true, is_trace)
     }
 }
