@@ -7,6 +7,16 @@ This changelog covers Firehose-specific changes only. For upstream changes, see 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## v0.1.0-fh-beta-9
+
+### Fixed
+
+- Startup no longer spends minutes in the RocksDB `TransactionHashNumbers` consistency check.
+  Healing scanned every transaction between the `TransactionLookup` checkpoint and the static
+  file tip, decompressing and hashing each one to issue a blind delete. It now deletes only
+  hashes that are actually stored and stops at the first batch with none, since the excess
+  above the checkpoint is contiguous.
+
 ## v0.1.0-fh-beta-8
 
 ### Fixed
