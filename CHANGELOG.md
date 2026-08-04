@@ -7,6 +7,16 @@ This changelog covers Firehose-specific changes only. For upstream changes, see 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## v0.1.0-fh-beta-8
+
+### Fixed
+
+- Replay funding (`fund_beneficiary_for_system_tx_replay`) is now hard-disabled whenever the
+  EVM carries the Firehose inspector, independent of the fragile `CacheDB` type-name
+  heuristic. A misfire on a full-block path double-credits the validator in committed state —
+  prime suspect for both the phantom GAS_BUY traces and the block 106696194 deposit-value
+  divergence.
+
 ## v0.1.0-fh-beta-7
 
 ### Added
