@@ -151,10 +151,21 @@ fn main() -> eyre::Result<()> {
     // Initialize the process-wide Firehose tracer. FIRE lines are emitted on stdout; the
     // engine-tree live path and the pipeline execution stage pick this up via
     // reth_firehose::is_tracer_initialized().
-    reth_firehose::init_tracer(firehose_tracer::config::Config {
-        chain_client: firehose_tracer::config::ChainClient::Reth,
-        ..Default::default()
-    });
+    //
+    // FIREHOSE_DISABLED=true skips initialization entirely: the node then executes through the
+    // plain (untraced) path, byte-identical to un-instrumented reth-bsc. Ops kill-switch and
+    // A/B lever for isolating tracing-induced behavior.
+    let firehose_disabled = std::env::var("FIREHOSE_DISABLED")
+        .map(|v| matches!(v.as_str(), "1" | "true" | "TRUE" | "True"))
+        .unwrap_or(false);
+    if firehose_disabled {
+        eprintln!("FIREHOSE_DISABLED set: Firehose tracing is OFF for this run");
+    } else {
+        reth_firehose::init_tracer(firehose_tracer::config::Config {
+            chain_client: firehose_tracer::config::ChainClient::Reth,
+            ..Default::default()
+        });
+    }
 
     // BSC-specific tracing behavior (mirrors the geth Firehose reference):
     // - tx fees (and blob fees) are credited to the consensus SYSTEM_ADDRESS, not the

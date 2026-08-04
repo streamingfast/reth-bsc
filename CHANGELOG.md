@@ -7,6 +7,16 @@ This changelog covers Firehose-specific changes only. For upstream changes, see 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## v0.1.0-fh-beta-7
+
+### Added
+
+- `FIREHOSE_DISABLED=true` kill-switch: skips tracer initialization entirely, so the node
+  executes through the plain untraced path, byte-identical to un-instrumented reth-bsc. The
+  firehose ExEx idles in no-op mode (still advancing `FinishedHeight` so the WAL prunes). Ops
+  lever for isolating tracing-induced behavior — e.g. the block 106696194 deposit-value
+  divergence under investigation.
+
 ## v0.1.0-fh-beta-3
 
 ### Fixed
