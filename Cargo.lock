@@ -1639,7 +1639,7 @@ dependencies = [
  "bitflags 2.11.1",
  "cexpr",
  "clang-sys",
- "itertools 0.13.0",
+ "itertools 0.12.1",
  "proc-macro2",
  "quote",
  "regex",
@@ -2042,6 +2042,7 @@ dependencies = [
  "alloy-genesis",
  "alloy-primitives",
  "alloy-rlp",
+ "rand 0.9.4",
  "rayon",
  "reth-chainspec",
  "reth-consensus",
@@ -3774,9 +3775,9 @@ checksum = "5baebc0774151f905a1a2cc41989300b1e6fbb29aff0ceffa1064fdd3088d582"
 
 [[package]]
 name = "firehose-tracer"
-version = "5.3.0"
+version = "5.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "12f116192c9a01744168c80024324eb8d25fa94917f644a84236da685041eb8b"
+checksum = "68617cc0fb3d0dfb49cbe29f3e05969fcabf93fcecaa1e0fda577c7c6c95494c"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -4251,9 +4252,9 @@ dependencies = [
 
 [[package]]
 name = "h2"
-version = "0.4.14"
+version = "0.4.16"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "171fefbc92fe4a4de27e0698d6a5b392d6a0e333506bc49133760b3bcf948733"
+checksum = "a9f37a958b41b3b19ee2707c06439c0e9e547e847223eb791ecb0cb821c65e27"
 dependencies = [
  "atomic-waker",
  "bytes 1.11.1",
@@ -4596,7 +4597,7 @@ dependencies = [
  "bytes 1.11.1",
  "futures-channel",
  "futures-core",
- "h2 0.4.14",
+ "h2 0.4.16",
  "http 1.4.1",
  "http-body 1.0.1",
  "httparse",
@@ -4669,7 +4670,7 @@ dependencies = [
  "libc",
  "percent-encoding",
  "pin-project-lite",
- "socket2 0.6.4",
+ "socket2 0.5.10",
  "tokio",
  "tower-service",
  "tracing",
@@ -6986,7 +6987,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "27c6023962132f4b30eb4c172c91ce92d933da334c59c23cddee82358ddafb0b"
 dependencies = [
  "anyhow",
- "itertools 0.14.0",
+ "itertools 0.12.1",
  "proc-macro2",
  "quote",
  "syn 2.0.117",
@@ -7065,7 +7066,7 @@ dependencies = [
  "quinn-udp",
  "rustc-hash",
  "rustls 0.23.40",
- "socket2 0.6.4",
+ "socket2 0.5.10",
  "thiserror 2.0.18",
  "tokio",
  "tracing",
@@ -7103,7 +7104,7 @@ dependencies = [
  "cfg_aliases",
  "libc",
  "once_cell",
- "socket2 0.6.4",
+ "socket2 0.5.10",
  "tracing",
  "windows-sys 0.60.2",
 ]
@@ -7581,7 +7582,7 @@ checksum = "1e061d1b48cb8d38042de4ae0a7a6401009d6143dc80d2e2d6f31f0bdd6470c7"
 [[package]]
 name = "reth"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-evm",
  "alloy-primitives",
@@ -7626,7 +7627,7 @@ dependencies = [
 [[package]]
 name = "reth-basic-payload-builder"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -7636,7 +7637,7 @@ dependencies = [
  "metrics",
  "reth-chain-state",
  "reth-execution-cache",
- "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2)",
+ "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1)",
  "reth-payload-builder",
  "reth-payload-builder-primitives",
  "reth-payload-primitives",
@@ -7653,7 +7654,7 @@ dependencies = [
 [[package]]
 name = "reth-chain-state"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -7670,7 +7671,7 @@ dependencies = [
  "reth-errors",
  "reth-ethereum-primitives",
  "reth-execution-types",
- "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2)",
+ "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1)",
  "reth-primitives-traits",
  "reth-storage-api",
  "reth-trie",
@@ -7686,7 +7687,7 @@ dependencies = [
 [[package]]
 name = "reth-chainspec"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-chains",
  "alloy-consensus",
@@ -7706,7 +7707,7 @@ dependencies = [
 [[package]]
 name = "reth-cli"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-genesis",
  "clap",
@@ -7719,7 +7720,7 @@ dependencies = [
 [[package]]
 name = "reth-cli-commands"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-chains",
  "alloy-consensus",
@@ -7809,7 +7810,7 @@ dependencies = [
 [[package]]
 name = "reth-cli-runner"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "reth-tasks",
  "tokio",
@@ -7819,7 +7820,7 @@ dependencies = [
 [[package]]
 name = "reth-cli-util"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-eips 2.0.5",
  "alloy-primitives",
@@ -7868,7 +7869,7 @@ dependencies = [
 [[package]]
 name = "reth-config"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "eyre",
  "humantime-serde",
@@ -7884,7 +7885,7 @@ dependencies = [
 [[package]]
 name = "reth-consensus"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-primitives",
@@ -7897,7 +7898,7 @@ dependencies = [
 [[package]]
 name = "reth-consensus-common"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -7910,7 +7911,7 @@ dependencies = [
 [[package]]
 name = "reth-consensus-debug-client"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -7936,7 +7937,7 @@ dependencies = [
 [[package]]
 name = "reth-db"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-primitives",
  "derive_more 2.1.1",
@@ -7949,7 +7950,7 @@ dependencies = [
  "reth-db-api",
  "reth-fs-util",
  "reth-libmdbx",
- "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2)",
+ "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1)",
  "reth-nippy-jar",
  "reth-static-file-types",
  "reth-storage-errors",
@@ -7965,7 +7966,7 @@ dependencies = [
 [[package]]
 name = "reth-db-api"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-primitives",
@@ -7991,7 +7992,7 @@ dependencies = [
 [[package]]
 name = "reth-db-common"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-genesis",
@@ -8025,7 +8026,7 @@ dependencies = [
 [[package]]
 name = "reth-db-models"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-eips 2.0.5",
  "alloy-primitives",
@@ -8040,7 +8041,7 @@ dependencies = [
 [[package]]
 name = "reth-discv4"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-primitives",
  "alloy-rlp",
@@ -8065,7 +8066,7 @@ dependencies = [
 [[package]]
 name = "reth-discv5"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-primitives",
  "alloy-rlp",
@@ -8078,7 +8079,7 @@ dependencies = [
  "rand 0.9.4",
  "reth-chainspec",
  "reth-ethereum-forks",
- "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2)",
+ "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1)",
  "reth-network-peers",
  "secp256k1 0.30.0",
  "thiserror 2.0.18",
@@ -8089,7 +8090,7 @@ dependencies = [
 [[package]]
 name = "reth-dns-discovery"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-primitives",
  "dashmap 6.2.1",
@@ -8113,7 +8114,7 @@ dependencies = [
 [[package]]
 name = "reth-downloaders"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -8129,7 +8130,7 @@ dependencies = [
  "reth-config",
  "reth-consensus",
  "reth-ethereum-primitives",
- "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2)",
+ "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1)",
  "reth-network-p2p",
  "reth-network-peers",
  "reth-primitives-traits",
@@ -8148,7 +8149,7 @@ dependencies = [
 [[package]]
 name = "reth-ecies"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "aes",
  "alloy-primitives",
@@ -8176,7 +8177,7 @@ dependencies = [
 [[package]]
 name = "reth-engine-local"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-primitives",
@@ -8199,7 +8200,7 @@ dependencies = [
 [[package]]
 name = "reth-engine-primitives"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -8224,7 +8225,7 @@ dependencies = [
 [[package]]
 name = "reth-engine-tree"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eip7928",
@@ -8252,7 +8253,7 @@ dependencies = [
  "reth-execution-cache",
  "reth-execution-types",
  "reth-firehose",
- "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2)",
+ "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1)",
  "reth-network-p2p",
  "reth-payload-builder",
  "reth-payload-primitives",
@@ -8286,7 +8287,7 @@ dependencies = [
 [[package]]
 name = "reth-engine-util"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-rpc-types-engine",
@@ -8314,7 +8315,7 @@ dependencies = [
 [[package]]
 name = "reth-era"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -8330,7 +8331,7 @@ dependencies = [
 [[package]]
 name = "reth-era-downloader"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-primitives",
  "bytes 1.11.1",
@@ -8346,7 +8347,7 @@ dependencies = [
 [[package]]
 name = "reth-era-utils"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-primitives",
@@ -8368,7 +8369,7 @@ dependencies = [
 [[package]]
 name = "reth-errors"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "reth-consensus",
  "reth-execution-errors",
@@ -8379,7 +8380,7 @@ dependencies = [
 [[package]]
 name = "reth-eth-wire"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-chains",
  "alloy-primitives",
@@ -8393,7 +8394,7 @@ dependencies = [
  "reth-ecies",
  "reth-eth-wire-types",
  "reth-ethereum-forks",
- "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2)",
+ "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1)",
  "reth-network-peers",
  "reth-primitives-traits",
  "serde",
@@ -8408,7 +8409,7 @@ dependencies = [
 [[package]]
 name = "reth-eth-wire-types"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-chains",
  "alloy-consensus",
@@ -8433,7 +8434,7 @@ dependencies = [
 [[package]]
 name = "reth-ethereum-cli"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "clap",
  "eyre",
@@ -8456,7 +8457,7 @@ dependencies = [
 [[package]]
 name = "reth-ethereum-consensus"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -8472,7 +8473,7 @@ dependencies = [
 [[package]]
 name = "reth-ethereum-engine-primitives"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-eips 2.0.5",
  "alloy-primitives",
@@ -8488,7 +8489,7 @@ dependencies = [
 [[package]]
 name = "reth-ethereum-forks"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-eip2124",
  "alloy-hardforks",
@@ -8502,7 +8503,7 @@ dependencies = [
 [[package]]
 name = "reth-ethereum-payload-builder"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -8532,7 +8533,7 @@ dependencies = [
 [[package]]
 name = "reth-ethereum-primitives"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -8546,7 +8547,7 @@ dependencies = [
 [[package]]
 name = "reth-etl"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "rayon",
  "reth-db-api",
@@ -8556,7 +8557,7 @@ dependencies = [
 [[package]]
 name = "reth-evm"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -8569,7 +8570,7 @@ dependencies = [
  "rayon",
  "reth-execution-errors",
  "reth-execution-types",
- "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2)",
+ "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1)",
  "reth-primitives-traits",
  "reth-storage-api",
  "reth-storage-errors",
@@ -8581,7 +8582,7 @@ dependencies = [
 [[package]]
 name = "reth-evm-ethereum"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -8601,14 +8602,14 @@ dependencies = [
 [[package]]
 name = "reth-execution-cache"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-primitives",
  "fixed-cache",
  "metrics",
  "parking_lot",
  "reth-errors",
- "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2)",
+ "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1)",
  "reth-primitives-traits",
  "reth-provider",
  "reth-revm",
@@ -8619,7 +8620,7 @@ dependencies = [
 [[package]]
 name = "reth-execution-errors"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-evm",
  "alloy-primitives",
@@ -8632,7 +8633,7 @@ dependencies = [
 [[package]]
 name = "reth-execution-types"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -8651,7 +8652,7 @@ dependencies = [
 [[package]]
 name = "reth-exex"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -8668,7 +8669,7 @@ dependencies = [
  "reth-evm",
  "reth-exex-types",
  "reth-fs-util",
- "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2)",
+ "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1)",
  "reth-node-api",
  "reth-node-core",
  "reth-payload-builder",
@@ -8689,7 +8690,7 @@ dependencies = [
 [[package]]
 name = "reth-exex-types"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-eips 2.0.5",
  "alloy-primitives",
@@ -8703,7 +8704,7 @@ dependencies = [
 [[package]]
 name = "reth-firehose"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eip7928",
@@ -8731,7 +8732,7 @@ dependencies = [
 [[package]]
 name = "reth-fs-util"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "serde",
  "serde_json",
@@ -8741,7 +8742,7 @@ dependencies = [
 [[package]]
 name = "reth-invalid-block-hooks"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-primitives",
@@ -8769,7 +8770,7 @@ dependencies = [
 [[package]]
 name = "reth-ipc"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "bytes 1.11.1",
  "futures",
@@ -8789,7 +8790,7 @@ dependencies = [
 [[package]]
 name = "reth-libmdbx"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "bitflags 2.11.1",
  "byteorder",
@@ -8806,7 +8807,7 @@ dependencies = [
 [[package]]
 name = "reth-mdbx-sys"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "bindgen",
  "cc",
@@ -8815,7 +8816,7 @@ dependencies = [
 [[package]]
 name = "reth-metrics"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "futures",
  "metrics",
@@ -8828,7 +8829,7 @@ dependencies = [
 [[package]]
 name = "reth-metrics"
 version = "2.2.0"
-source = "git+https://github.com/bnb-chain/reth.git#c13b098660e0a65bd9aac8171eb917c04ed2297f"
+source = "git+https://github.com/bnb-chain/reth.git#5b39de0654282b971bb0c6cd6205def8848b8748"
 dependencies = [
  "futures",
  "metrics",
@@ -8841,7 +8842,7 @@ dependencies = [
 [[package]]
 name = "reth-net-banlist"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-primitives",
  "ipnet",
@@ -8850,7 +8851,7 @@ dependencies = [
 [[package]]
 name = "reth-net-nat"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "futures-util",
  "if-addrs",
@@ -8864,7 +8865,7 @@ dependencies = [
 [[package]]
 name = "reth-network"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -8895,7 +8896,7 @@ dependencies = [
  "reth-ethereum-primitives",
  "reth-evm-ethereum",
  "reth-fs-util",
- "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2)",
+ "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1)",
  "reth-net-banlist",
  "reth-network-api",
  "reth-network-p2p",
@@ -8922,7 +8923,7 @@ dependencies = [
 [[package]]
 name = "reth-network-api"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-primitives",
@@ -8947,7 +8948,7 @@ dependencies = [
 [[package]]
 name = "reth-network-p2p"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -8970,7 +8971,7 @@ dependencies = [
 [[package]]
 name = "reth-network-peers"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-primitives",
  "alloy-rlp",
@@ -8985,7 +8986,7 @@ dependencies = [
 [[package]]
 name = "reth-network-types"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-eip2124",
  "humantime-serde",
@@ -8999,7 +9000,7 @@ dependencies = [
 [[package]]
 name = "reth-nippy-jar"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "anyhow",
  "bincode",
@@ -9016,7 +9017,7 @@ dependencies = [
 [[package]]
 name = "reth-node-api"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-rpc-types-engine",
  "eyre",
@@ -9040,7 +9041,7 @@ dependencies = [
 [[package]]
 name = "reth-node-builder"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -9111,7 +9112,7 @@ dependencies = [
 [[package]]
 name = "reth-node-core"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -9166,7 +9167,7 @@ dependencies = [
 [[package]]
 name = "reth-node-ethereum"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-eips 2.0.5",
  "alloy-network",
@@ -9204,7 +9205,7 @@ dependencies = [
 [[package]]
 name = "reth-node-ethstats"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-primitives",
@@ -9228,7 +9229,7 @@ dependencies = [
 [[package]]
 name = "reth-node-events"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -9252,7 +9253,7 @@ dependencies = [
 [[package]]
 name = "reth-node-metrics"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "bytes 1.11.1",
  "eyre",
@@ -9265,7 +9266,7 @@ dependencies = [
  "metrics-util",
  "procfs",
  "reqwest 0.13.4",
- "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2)",
+ "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1)",
  "reth-tasks",
  "tikv-jemalloc-ctl",
  "tokio",
@@ -9276,7 +9277,7 @@ dependencies = [
 [[package]]
 name = "reth-node-types"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "reth-chainspec",
  "reth-db-api",
@@ -9288,7 +9289,7 @@ dependencies = [
 [[package]]
 name = "reth-payload-builder"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-primitives",
@@ -9299,7 +9300,7 @@ dependencies = [
  "reth-chain-state",
  "reth-ethereum-engine-primitives",
  "reth-execution-cache",
- "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2)",
+ "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1)",
  "reth-payload-builder-primitives",
  "reth-payload-primitives",
  "reth-primitives-traits",
@@ -9312,7 +9313,7 @@ dependencies = [
 [[package]]
 name = "reth-payload-builder-primitives"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "pin-project",
  "reth-payload-primitives",
@@ -9324,7 +9325,7 @@ dependencies = [
 [[package]]
 name = "reth-payload-primitives"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -9348,7 +9349,7 @@ dependencies = [
 [[package]]
 name = "reth-payload-validator"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-rpc-types-engine",
@@ -9390,7 +9391,7 @@ dependencies = [
 [[package]]
 name = "reth-provider"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -9413,7 +9414,7 @@ dependencies = [
  "reth-ethereum-primitives",
  "reth-execution-types",
  "reth-fs-util",
- "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2)",
+ "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1)",
  "reth-nippy-jar",
  "reth-node-types",
  "reth-primitives-traits",
@@ -9438,7 +9439,7 @@ dependencies = [
 [[package]]
 name = "reth-prune"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -9450,7 +9451,7 @@ dependencies = [
  "reth-db-api",
  "reth-errors",
  "reth-exex-types",
- "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2)",
+ "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1)",
  "reth-primitives-traits",
  "reth-provider",
  "reth-prune-types",
@@ -9467,7 +9468,7 @@ dependencies = [
 [[package]]
 name = "reth-prune-types"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-primitives",
  "arbitrary",
@@ -9483,7 +9484,7 @@ dependencies = [
 [[package]]
 name = "reth-revm"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-primitives",
  "alloy-rlp",
@@ -9498,7 +9499,7 @@ dependencies = [
 [[package]]
 name = "reth-rpc"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-dyn-abi",
@@ -9541,7 +9542,7 @@ dependencies = [
  "reth-evm",
  "reth-evm-ethereum",
  "reth-execution-types",
- "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2)",
+ "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1)",
  "reth-network-api",
  "reth-network-peers",
  "reth-network-types",
@@ -9576,7 +9577,7 @@ dependencies = [
 [[package]]
 name = "reth-rpc-api"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-eips 2.0.5",
  "alloy-genesis",
@@ -9606,7 +9607,7 @@ dependencies = [
 [[package]]
 name = "reth-rpc-builder"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-network",
  "alloy-provider",
@@ -9621,7 +9622,7 @@ dependencies = [
  "reth-engine-primitives",
  "reth-evm",
  "reth-ipc",
- "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2)",
+ "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1)",
  "reth-network-api",
  "reth-node-core",
  "reth-payload-primitives",
@@ -9649,7 +9650,7 @@ dependencies = [
 [[package]]
 name = "reth-rpc-convert"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-evm",
@@ -9670,7 +9671,7 @@ dependencies = [
 [[package]]
 name = "reth-rpc-engine-api"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-eips 2.0.5",
  "alloy-primitives",
@@ -9682,7 +9683,7 @@ dependencies = [
  "metrics",
  "reth-chainspec",
  "reth-engine-primitives",
- "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2)",
+ "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1)",
  "reth-network-api",
  "reth-payload-builder",
  "reth-payload-builder-primitives",
@@ -9701,7 +9702,7 @@ dependencies = [
 [[package]]
 name = "reth-rpc-eth-api"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-dyn-abi",
@@ -9749,7 +9750,7 @@ dependencies = [
 [[package]]
 name = "reth-rpc-eth-types"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -9774,7 +9775,7 @@ dependencies = [
  "reth-ethereum-primitives",
  "reth-evm",
  "reth-execution-types",
- "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2)",
+ "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1)",
  "reth-primitives-traits",
  "reth-revm",
  "reth-rpc-convert",
@@ -9787,6 +9788,7 @@ dependencies = [
  "revm-inspectors",
  "schnellru",
  "serde",
+ "serde_json",
  "thiserror 2.0.18",
  "tokio",
  "tokio-stream",
@@ -9797,7 +9799,7 @@ dependencies = [
 [[package]]
 name = "reth-rpc-layer"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-rpc-types-engine",
  "http 1.4.1",
@@ -9811,7 +9813,7 @@ dependencies = [
 [[package]]
 name = "reth-rpc-server-types"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-eips 2.0.5",
  "alloy-primitives",
@@ -9841,7 +9843,7 @@ dependencies = [
 [[package]]
 name = "reth-stages"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -9896,7 +9898,7 @@ dependencies = [
 [[package]]
 name = "reth-stages-api"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-eips 2.0.5",
  "alloy-primitives",
@@ -9907,7 +9909,7 @@ dependencies = [
  "reth-codecs",
  "reth-consensus",
  "reth-errors",
- "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2)",
+ "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1)",
  "reth-network-p2p",
  "reth-primitives-traits",
  "reth-provider",
@@ -9924,7 +9926,7 @@ dependencies = [
 [[package]]
 name = "reth-stages-types"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-primitives",
  "arbitrary",
@@ -9938,7 +9940,7 @@ dependencies = [
 [[package]]
 name = "reth-static-file"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-primitives",
  "parking_lot",
@@ -9958,7 +9960,7 @@ dependencies = [
 [[package]]
 name = "reth-static-file-types"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-primitives",
  "clap",
@@ -9973,7 +9975,7 @@ dependencies = [
 [[package]]
 name = "reth-storage-api"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -9997,7 +9999,7 @@ dependencies = [
 [[package]]
 name = "reth-storage-errors"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-eips 2.0.5",
  "alloy-primitives",
@@ -10015,7 +10017,7 @@ dependencies = [
 [[package]]
 name = "reth-tasks"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "crossbeam-utils",
  "dashmap 6.2.1",
@@ -10025,7 +10027,7 @@ dependencies = [
  "parking_lot",
  "pin-project",
  "rayon",
- "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2)",
+ "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1)",
  "thiserror 2.0.18",
  "thread-priority",
  "tokio",
@@ -10036,7 +10038,7 @@ dependencies = [
 [[package]]
 name = "reth-testing-utils"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -10052,7 +10054,7 @@ dependencies = [
 [[package]]
 name = "reth-tokio-util"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "tokio",
  "tokio-stream",
@@ -10062,7 +10064,7 @@ dependencies = [
 [[package]]
 name = "reth-tracing"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "clap",
  "eyre",
@@ -10077,7 +10079,7 @@ dependencies = [
 [[package]]
 name = "reth-tracing-otlp"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "clap",
  "eyre",
@@ -10095,7 +10097,7 @@ dependencies = [
 [[package]]
 name = "reth-transaction-pool"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -10119,7 +10121,7 @@ dependencies = [
  "reth-evm-ethereum",
  "reth-execution-types",
  "reth-fs-util",
- "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2)",
+ "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1)",
  "reth-primitives-traits",
  "reth-storage-api",
  "reth-tasks",
@@ -10140,7 +10142,7 @@ dependencies = [
 [[package]]
 name = "reth-trie"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
@@ -10152,7 +10154,7 @@ dependencies = [
  "metrics",
  "parking_lot",
  "reth-execution-errors",
- "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2)",
+ "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1)",
  "reth-primitives-traits",
  "reth-stages-types",
  "reth-storage-errors",
@@ -10166,7 +10168,7 @@ dependencies = [
 [[package]]
 name = "reth-trie-common"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-consensus",
  "alloy-primitives",
@@ -10195,14 +10197,14 @@ dependencies = [
 [[package]]
 name = "reth-trie-db"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-primitives",
  "metrics",
  "parking_lot",
  "reth-db-api",
  "reth-execution-errors",
- "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2)",
+ "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1)",
  "reth-primitives-traits",
  "reth-stages-types",
  "reth-storage-api",
@@ -10216,7 +10218,7 @@ dependencies = [
 [[package]]
 name = "reth-trie-parallel"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-eip7928",
  "alloy-evm",
@@ -10229,7 +10231,7 @@ dependencies = [
  "metrics",
  "rayon",
  "reth-execution-errors",
- "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2)",
+ "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1)",
  "reth-primitives-traits",
  "reth-provider",
  "reth-storage-errors",
@@ -10244,7 +10246,7 @@ dependencies = [
 [[package]]
 name = "reth-trie-sparse"
 version = "2.2.0"
-source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2#c0c2ab6b3d96c496e38511a2c3c07a71ffad4f97"
+source = "git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1#869fc717eb2a967f05b1043a2ac6ea561819ac36"
 dependencies = [
  "alloy-primitives",
  "alloy-rlp",
@@ -10252,7 +10254,7 @@ dependencies = [
  "metrics",
  "rayon",
  "reth-execution-errors",
- "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2)",
+ "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1)",
  "reth-primitives-traits",
  "reth-trie-common",
  "serde",
@@ -10352,7 +10354,7 @@ dependencies = [
  "reth-execution-types",
  "reth-firehose",
  "reth-ipc",
- "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.1-fh3.2)",
+ "reth-metrics 2.2.0 (git+https://github.com/streamingfast/reth.git?tag=bnb-v0.1.2-fh3.1)",
  "reth-network",
  "reth-network-api",
  "reth-network-p2p",
@@ -13258,7 +13260,7 @@ version = "0.1.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c2a7b1c03c876122aa43f3020e6c3c3ee5c05081c9a00739faf7503aeba10d22"
 dependencies = [
- "windows-sys 0.61.2",
+ "windows-sys 0.48.0",
 ]
 
 [[package]]
