@@ -7,6 +7,17 @@ This changelog covers Firehose-specific changes only. For upstream changes, see 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## Unreleased
+
+### Fixed
+
+- Stop advertising a finalized block that is not an ancestor of the block being emitted
+  (`streamingfast/reth` `bnb-v0.1.1-fh3.2`). Every `FIRE BLOCK` line carried the node's finalized
+  head as of the moment the block executed, so blocks from a side branch were published with a LIB
+  number from the canonical chain — downstream then marked its own block at that height
+  irreversible and saw it replaced by the reorg. Seen on mainnet at 120653740, where a four-block
+  branch was published with LIB 120653741, one of them naming a height above the block itself.
+
 ## v0.1.1-fh
 
 Release ready for prime time
