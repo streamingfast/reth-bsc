@@ -7,6 +7,38 @@ This changelog covers Firehose-specific changes only. For upstream changes, see 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## v0.1.2-fh3.1
+
+### Changed
+
+- Rebased onto upstream `v0.1.2` (`968d07d`), which brings BEP-675 BidBlock (`mev_sendBidBlock`
+  and the whole builder-permission path), the Pasteur mainnet schedule and system-contract
+  upgrade, the BSC release identity in `--version`, tolerant `BlocksByRange` wire decoding,
+  and a batch of RPC parity fixes. The reth pin moves to `streamingfast/reth`
+  `bnb-v0.1.2-fh3.1`, which tracks bnb-chain/reth `v0.1.2`.
+- Upstream now reports its own out-of-EVM state writes to the state hook so the incremental
+  state root sees them: the system-contract upgrades and the Prague `HISTORY_STORAGE_ADDRESS`
+  deployment in `executor.rs`, and the `SYSTEM_ADDRESS` sweep plus validator block reward in
+  `post_execution.rs`. The Firehose `on_code_change` / `on_balance_change` emissions on those
+  same paths are unchanged and sit alongside the new `on_state` calls — the two feed different
+  consumers and neither double-counts.
+
+### Fixed
+
+- Bounded the memory the node retains while recovering a fork, backported from upstream
+  `develop` ahead of the next upstream release: ancestor recovery now runs at most 3 walks
+  concurrently instead of one per announced head, commits the progress it made when a walk
+  halts instead of discarding it (bnb-chain/reth-bsc#462), and applies fork choice after every
+  accepted payload while releasing each block body as the range is consumed
+  (bnb-chain/reth-bsc#501). Before this, an archive node more than 2048 blocks behind
+  re-imported the same range 15-20 times and grew the heap ~50 GB/min until it was OOM-killed;
+  the reporter of bnb-chain/reth-bsc#500 measured peak heap dropping from 275 GB to 3.1-14.5 GB
+  and steady state from 50-260 GB to 2.7 GB over 24 hours, with block hashes still matching
+  `bsc-dataseed`. Two problems from that report are *not* addressed here and remain open
+  upstream as bnb-chain/reth-bsc#503: the staged pipeline still rolls the canonical head back
+  over live-import progress, and live import runs at about 126 blk/min against BSC's ~133, so a
+  node that falls deeply behind may still fail to converge.
+
 ## v0.1.1-fh3.2
 
 ### Fixed
