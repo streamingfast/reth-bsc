@@ -7,6 +7,19 @@ This changelog covers Firehose-specific changes only. For upstream changes, see 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## v0.1.2-fh3.1-1
+
+### Changed
+
+- Bumped `streamingfast/reth` to `bnb-v0.1.2-fh3.1-1`, which stops recording keccak preimages
+  larger than 256 bytes. `Call.keccak_preimages` exists so a consumer can walk a storage slot back
+  to the expression that produced it, and Solidity's slot derivations are small: 32 bytes for a
+  dynamic array or a `bytes`/`string` longer than 31 bytes, 64 bytes for a mapping with a
+  value-type key, and 32 bytes plus the key for a `mapping(string => V)`. 256 bytes covers all of
+  those, with room for a 224-byte dynamic key. The large ones came from contracts hashing their own
+  data and could reach 64 KiB each; they are dropped rather than truncated, since a truncated
+  preimage no longer hashes back to its key.
+
 ## v0.1.2-fh3.1
 
 ### Changed
