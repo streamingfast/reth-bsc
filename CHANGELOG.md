@@ -7,6 +7,12 @@ This changelog covers Firehose-specific changes only. For upstream changes, see 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## v0.1.2-fh3.1-2
+
+### Changed
+
+- The Docker image contains `firehose-ethereum` `v2.23.0`.
+
 ## v0.1.2-fh3.1-1
 
 ### Changed
