@@ -40,7 +40,7 @@ reth-ethereum-primitives = { git = "https://github.com/streamingfast/reth.git", 
 
 # Firehose
 reth-firehose = { git = "https://github.com/streamingfast/reth.git", branch = "firehose-keccak-filter/bnb-0.x" }
-firehose-tracer = "5"
+firehose-tracer = "5.5.0"
 reth-eth-wire = { git = "https://github.com/streamingfast/reth.git", branch = "firehose-keccak-filter/bnb-0.x" }
 reth-eth-wire-types = { git = "https://github.com/streamingfast/reth.git", branch = "firehose-keccak-filter/bnb-0.x" }
 reth-evm = { git = "https://github.com/streamingfast/reth.git", branch = "firehose-keccak-filter/bnb-0.x" }
@@ -259,11 +259,6 @@ uuid = { version = "1", features = ["v4"] }
 tokio = { version = "1.44", features = ["full", "test-util"] }
 
 [patch.crates-io]
-## Firehose additions
-# Temporary: the keccak preimage filter is not on crates.io yet. Remove once firehose-tracer
-# 5.5.0 is published and the lock points to it.
-firehose-tracer = { git = "https://github.com/streamingfast/evm-firehose-tracer-rs.git", rev = "3321aec1ebb9e215de2bd9cc58e7f1726496e47f" }
-
 ## Firehose additions
 # SF fork of alloy-evm that routes system calls (EIP-4788, EIP-2935, etc.) through the Inspector.
 # See https://github.com/alloy-rs/evm/pull/323 for the upstream PR.
