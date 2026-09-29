@@ -16,30 +16,30 @@ reth_bsc = { path = "../.." }
 rand = "0.9"
 
 # reth dependencies aligned with the root crate's reth tag to avoid duplicate crate versions
-reth-chainspec = { git = "https://github.com/streamingfast/reth.git", branch = "firehose-keccak-filter/bnb-0.x" }
-reth-consensus = { git = "https://github.com/streamingfast/reth.git", branch = "firehose-keccak-filter/bnb-0.x" }
-reth-ethereum-forks = { git = "https://github.com/streamingfast/reth.git", branch = "firehose-keccak-filter/bnb-0.x" }
-reth-db = { git = "https://github.com/streamingfast/reth.git", branch = "firehose-keccak-filter/bnb-0.x", features = [
+reth-chainspec = { git = "https://github.com/streamingfast/reth.git", tag = "bnb-v0.1.2-fh3.1-2" }
+reth-consensus = { git = "https://github.com/streamingfast/reth.git", tag = "bnb-v0.1.2-fh3.1-2" }
+reth-ethereum-forks = { git = "https://github.com/streamingfast/reth.git", tag = "bnb-v0.1.2-fh3.1-2" }
+reth-db = { git = "https://github.com/streamingfast/reth.git", tag = "bnb-v0.1.2-fh3.1-2", features = [
     "mdbx",
     "test-utils",
     "disable-lock",
 ] }
-reth-db-api = { git = "https://github.com/streamingfast/reth.git", branch = "firehose-keccak-filter/bnb-0.x" }
-reth-db-common = { git = "https://github.com/streamingfast/reth.git", branch = "firehose-keccak-filter/bnb-0.x" }
-reth-ethereum-consensus = { git = "https://github.com/streamingfast/reth.git", branch = "firehose-keccak-filter/bnb-0.x" }
-reth-ethereum-primitives = { git = "https://github.com/streamingfast/reth.git", branch = "firehose-keccak-filter/bnb-0.x" }
-reth-evm = { git = "https://github.com/streamingfast/reth.git", branch = "firehose-keccak-filter/bnb-0.x" }
-reth-evm-ethereum = { git = "https://github.com/streamingfast/reth.git", branch = "firehose-keccak-filter/bnb-0.x" }
+reth-db-api = { git = "https://github.com/streamingfast/reth.git", tag = "bnb-v0.1.2-fh3.1-2" }
+reth-db-common = { git = "https://github.com/streamingfast/reth.git", tag = "bnb-v0.1.2-fh3.1-2" }
+reth-ethereum-consensus = { git = "https://github.com/streamingfast/reth.git", tag = "bnb-v0.1.2-fh3.1-2" }
+reth-ethereum-primitives = { git = "https://github.com/streamingfast/reth.git", tag = "bnb-v0.1.2-fh3.1-2" }
+reth-evm = { git = "https://github.com/streamingfast/reth.git", tag = "bnb-v0.1.2-fh3.1-2" }
+reth-evm-ethereum = { git = "https://github.com/streamingfast/reth.git", tag = "bnb-v0.1.2-fh3.1-2" }
 reth-primitives-traits = { git = "https://github.com/bnb-chain/reth-core.git", branch = "v0.3.1-v2", default-features = false }
-reth-provider = { git = "https://github.com/streamingfast/reth.git", branch = "firehose-keccak-filter/bnb-0.x", features = [
+reth-provider = { git = "https://github.com/streamingfast/reth.git", tag = "bnb-v0.1.2-fh3.1-2", features = [
     "test-utils",
 ] }
-reth-revm = { git = "https://github.com/streamingfast/reth.git", branch = "firehose-keccak-filter/bnb-0.x", features = [
+reth-revm = { git = "https://github.com/streamingfast/reth.git", tag = "bnb-v0.1.2-fh3.1-2", features = [
     "std",
 ] }
-reth-tracing = { git = "https://github.com/streamingfast/reth.git", branch = "firehose-keccak-filter/bnb-0.x" }
-reth-trie = { git = "https://github.com/streamingfast/reth.git", branch = "firehose-keccak-filter/bnb-0.x" }
-reth-trie-db = { git = "https://github.com/streamingfast/reth.git", branch = "firehose-keccak-filter/bnb-0.x" }
+reth-tracing = { git = "https://github.com/streamingfast/reth.git", tag = "bnb-v0.1.2-fh3.1-2" }
+reth-trie = { git = "https://github.com/streamingfast/reth.git", tag = "bnb-v0.1.2-fh3.1-2" }
+reth-trie-db = { git = "https://github.com/streamingfast/reth.git", tag = "bnb-v0.1.2-fh3.1-2" }
 
 # revm
 revm = { version = "38.0.0", features = [
