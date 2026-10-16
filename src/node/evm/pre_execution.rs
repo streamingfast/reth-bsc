@@ -929,6 +929,10 @@ where
         }
 
         let tx_env = view_call_tx_env(to, data, GETTER_GAS_LIMIT, self.spec.chain().id());
+        // Firehose: lane metadata reads are consensus bookkeeping that geth performs on the raw
+        // state, and they only run on a meta cache miss, so tracing them would make the block
+        // differ between nodes.
+        let _fh_suspend = reth_firehose::suspend_tracing();
         // Execution errors abort validation locally; getter reverts/halts indicate bad config.
         let result = self
             .evm
