@@ -7,6 +7,32 @@ This changelog covers Firehose-specific changes only. For upstream changes, see 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## v0.1.3-fh3.1
+
+### Changed
+
+- Rebased onto upstream `v0.1.3` (`f0b444f`), the release for the Chapel Jenner hardfork
+  (BEP-718) at 2026-10-29 02:30:00 UTC (`1793241000`): BEP-702 CAS20 stateful precompiles,
+  BEP-703 Payment Lane, the BEP-706 millisecond timestamp precompile at `0x70`, per-byte pricing
+  of the `0x68` double-sign evidence precompile, and BEP-675 BidBlock gRPC and revocation
+  changes. Mainnet Jenner is not scheduled. The reth pin moves to `streamingfast/reth`
+  `bnb-v0.1.3-fh3.1`, which tracks bnb-chain/reth `v0.1.3`.
+- `ACTIVATIONS.md` lists each hardfork, its status on mainnet and Chapel, and its effect on the
+  Firehose block.
+
+### Fixed
+
+- Payment Lane metadata reads no longer appear in the Firehose block. They run on the traced EVM
+  only when the lane cache misses (for example after a restart), so tracing them would have
+  added system calls that differ between nodes; geth reads the same values from raw state.
+
+### Known issues
+
+- CAS20 precompile calls do not yet match geth in the Firehose block: storage changes come before
+  all logs of the call instead of interleaved with them, a slot written twice in one call reports
+  the wrong intermediate value, and a reverted call loses its storage changes and logs. CAS20
+  tokens only exist on Chapel after Jenner and after governance opens token creation.
+
 ## v0.1.2-fh3.1-3
 
 ### Changed
