@@ -66,7 +66,16 @@ impl Cas20State for EvmInternals<'_> {
         value: U256,
     ) -> Result<StateLoad<SStoreResult>, String> {
         access_list::storage(address, key);
-        EvmInternals::sstore(self, address, key, value).map_err(|e| e.to_string())
+        let result = EvmInternals::sstore(self, address, key, value).map_err(|e| e.to_string())?;
+        // Firehose: geth's hooked state reports each write as it happens; the journal alone
+        // loses the order, intermediate values and reverted writes.
+        reth_firehose::precompile_effects::record_storage_change(
+            address,
+            key,
+            result.data.present_value,
+            result.data.new_value,
+        );
+        Ok(result)
     }
 
     fn code_hash(&mut self, address: Address) -> Result<StateLoad<B256>, String> {
@@ -78,10 +87,26 @@ impl Cas20State for EvmInternals<'_> {
     fn set_code(&mut self, address: Address, code: Bytecode) -> Result<(), String> {
         access_list::account(address);
         self.touch_account(address).map_err(|e| e.to_string())?;
-        EvmInternals::set_code(self, address, code).map_err(|e| e.to_string())
+        // Firehose: the replaced code is read only while a traced transaction records.
+        let recorded = if reth_firehose::precompile_effects::is_recording() {
+            let account = self.load_account(address).map_err(|e| e.to_string())?;
+            let old = &account.data.info;
+            let old_code = old.code.as_ref().map(|c| c.original_bytes()).unwrap_or_default();
+            Some((old.code_hash, old_code, code.hash_slow(), code.original_bytes()))
+        } else {
+            None
+        };
+        EvmInternals::set_code(self, address, code).map_err(|e| e.to_string())?;
+        if let Some((old_hash, old_code, new_hash, new_code)) = recorded {
+            reth_firehose::precompile_effects::record_code_change(
+                address, old_hash, old_code, new_hash, new_code,
+            );
+        }
+        Ok(())
     }
 
     fn log(&mut self, log: Log) {
+        reth_firehose::precompile_effects::record_log(&log);
         EvmInternals::log(self, log)
     }
 

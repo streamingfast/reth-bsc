@@ -18,7 +18,7 @@ Last checked: 2026-10-16, reth-bsc `v0.1.3` / bsc `v1.8.1`.
 | BEP-706 millisecond timestamp precompile at `0x70` | Read-only precompile, nothing new in the block beyond the call itself. |
 | BEP-703 Payment Lane | `PaymentLaneContract` (`0x…2007`) is installed by the Jenner system-contract upgrade at block end: one code change in `block.code_changes`, same as geth. Lane metadata getters run on the traced EVM with tracing suspended; geth reads them from raw state. Lane rules decide which transactions a block may hold but add no field. |
 | BEP-702 CAS20 registry sentinels | Marker code is planted on the activation and policy registries at block begin of the transition block. Not traced: geth plants them through the raw state at block begin, so its block has no code change for them either. |
-| BEP-702 CAS20 stateful precompiles | Tokens only exist after governance opens creation. Their storage writes and logs reach the block through the generic precompile gathering in `reth-firehose`, which differs from geth: all storage changes of a precompile call come before all of its logs (geth interleaves them), a slot written twice in one call reports the final value as the first write's new value, and a reverted CAS20 call loses its storage changes and logs. Open. |
+| BEP-702 CAS20 stateful precompiles | Tokens only exist after governance opens creation. Each storage write, code install and log a CAS20 call makes is reported to `reth_firehose::precompile_effects` as it happens, so the call carries them in write order, with intermediate values, and keeps them when it reverts, as geth's hooked state does. |
 | `0x68` double-sign evidence precompile priced per input byte | Gas only. |
 
 ## Earlier forks

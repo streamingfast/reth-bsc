@@ -3,6 +3,7 @@
 //! The scenarios mirror go-bsc's core/vm/cas20_*_test.go.
 
 mod access_list;
+mod firehose;
 
 use super::{
     abi::*,

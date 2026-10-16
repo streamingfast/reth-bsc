@@ -25,13 +25,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Payment Lane metadata reads no longer appear in the Firehose block. They run on the traced EVM
   only when the lane cache misses (for example after a restart), so tracing them would have
   added system calls that differ between nodes; geth reads the same values from raw state.
-
-### Known issues
-
-- CAS20 precompile calls do not yet match geth in the Firehose block: storage changes come before
-  all logs of the call instead of interleaved with them, a slot written twice in one call reports
-  the wrong intermediate value, and a reverted call loses its storage changes and logs. CAS20
-  tokens only exist on Chapel after Jenner and after governance opens token creation.
+- CAS20 precompile calls now appear in the Firehose block as they do in geth: storage changes
+  and logs keep the order the precompile made them in, a slot written twice in one call reports
+  its intermediate value, and a reverted call keeps its storage changes, code install and logs.
+  The precompiles report each write to `reth_firehose::precompile_effects` as they make it,
+  instead of the inspector reading them back from the journal when the call ends.
 
 ## v0.1.2-fh3.1-3
 
