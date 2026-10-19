@@ -60,3 +60,54 @@ impl AsBscEvmConfig for reth_firehose::FirehoseEvmConfig<BscEvmConfig> {
         &self.inner
     }
 }
+
+#[cfg(test)]
+mod firehose_tests {
+    use crate::{
+        chainspec::{bsc::bsc_mainnet, BscChainSpec},
+        hardforks::bsc::BscHardfork,
+        node::evm::config::BscEvmConfig,
+    };
+    use alloy_evm::Evm as _;
+    use alloy_primitives::U256;
+    use reth_chainspec::ForkCondition;
+    use reth_evm::ConfigureEvm;
+    use revm::database::EmptyDB;
+    use std::sync::Arc;
+
+    const JENNER_AT: u64 = 1_800_000_000;
+
+    #[test]
+    fn firehose_config_applies_block_override_fork_rules() {
+        let mut spec = bsc_mainnet();
+        spec.hardforks.insert(BscHardfork::Jenner, ForkCondition::Timestamp(JENNER_AT));
+        let config = BscEvmConfig::new(Arc::new(BscChainSpec::from(spec)));
+        let header = alloy_consensus::Header {
+            number: 40_000_000,
+            timestamp: JENNER_AT - 100,
+            gas_limit: 140_000_000,
+            base_fee_per_gas: Some(0),
+            difficulty: U256::from(2u64),
+            excess_blob_gas: Some(0),
+            blob_gas_used: Some(0),
+            ..Default::default()
+        };
+        let mut env = config.evm_env(&header).unwrap();
+        assert_ne!(env.cfg_env.spec, BscHardfork::Jenner);
+        // An RPC time override that crosses Jenner.
+        env.block_env.inner.timestamp = U256::from(JENNER_AT + 100);
+
+        let firehose = reth_firehose::FirehoseEvmConfig::new(config);
+        assert_eq!(
+            firehose.evm_with_env(EmptyDB::default(), env.clone()).cfg_env().spec,
+            BscHardfork::Jenner
+        );
+        assert_eq!(
+            firehose
+                .evm_with_env_and_inspector(EmptyDB::default(), env, revm::inspector::NoOpInspector)
+                .cfg_env()
+                .spec,
+            BscHardfork::Jenner
+        );
+    }
+}
