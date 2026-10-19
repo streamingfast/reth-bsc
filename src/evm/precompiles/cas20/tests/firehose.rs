@@ -1,7 +1,7 @@
 //! A CAS20 call traced through the Firehose inspector reports its writes the way geth's
 //! hooked state does: in write order, with intermediate values, and kept on revert.
 
-use super::{a, call_data, encode_create, w, ADMIN, ALICE};
+use super::{a, call_data, derive_address, encode_create, w, ADMIN, ALICE, BOB};
 use crate::{
     evm::{
         api::BscEvm,
@@ -26,9 +26,10 @@ use reth_firehose::inspector::FirehoseInspector;
 use revm::{
     context::{result::ExecutionResult, BlockEnv, CfgEnv, TxEnv},
     database::InMemoryDB,
+    inspector::InspectorEvmTr,
     primitives::TxKind,
     state::AccountInfo,
-    InspectEvm,
+    InspectCommitEvm,
 };
 
 const CHAIN_ID: u64 = 714;
@@ -84,6 +85,55 @@ fn reverted_creation_keeps_its_writes() {
     assert!(!call.logs.is_empty());
 }
 
+#[test]
+fn a_write_whose_gas_is_not_paid_is_not_reported() {
+    let create =
+        encode_create(VARIANT_ASSET, w(3), ALICE, &[call_data(SEL_MINT, &[a(ALICE), w(1000)])]);
+    let token = derive_address(VARIANT_ASSET, ALICE, w(3));
+    let transfer = call_data(SEL_TRANSFER, &[a(BOB), w(400)]);
+    let bob_slot = B256::from(mapping_slot(slot_at(SLOT_BALANCES), a(BOB))).to_vec();
+
+    // Some(bob's balance written) for the transfer at `gas`, None when it succeeds.
+    let run = |gas: u64| {
+        let (block, result) =
+            trace_tx(&[(FACTORY_ADDRESS, create.clone(), 2_000_000)], token, transfer.clone(), gas);
+        if result.is_success() {
+            return None;
+        }
+        let call = root_call(&block);
+        Some(call.storage_changes.iter().any(|c| c.key == bob_slot))
+    };
+
+    let (mut lo, mut hi) = (21_000u64, 200_000u64);
+    assert!(run(hi).is_none(), "the transfer succeeds with ample gas");
+    while hi - lo > 1 {
+        let mid = (lo + hi) / 2;
+        if run(mid).is_none() {
+            hi = mid
+        } else {
+            lo = mid
+        }
+    }
+    let enough = hi;
+
+    // Bob's slot goes from zero to non-zero (20,000 gas) and only the Transfer log is charged
+    // after it, so a reported write leaves the transfer short by less than the write costs.
+    // Reporting it once the 2,300-gas sentry passes would show it far below that.
+    let mut reported = 0;
+    let mut unreported = 0;
+    for gas in (enough - 30_000..enough).step_by(250) {
+        match run(gas) {
+            Some(true) => {
+                assert!(enough - gas < 5_000, "write reported {} gas short", enough - gas);
+                reported += 1;
+            }
+            Some(false) => unreported += 1,
+            None => panic!("transfer succeeded below the minimum gas"),
+        }
+    }
+    assert!(reported > 0 && unreported > 0, "the sweep crosses the write");
+}
+
 fn root_call(block: &Block) -> &Call {
     let trx = block.transaction_traces.first().expect("one transaction");
     trx.calls.first().expect("root call")
@@ -93,6 +143,18 @@ fn root_call(block: &Block) -> &Call {
 /// Firehose inspector, and returns the decoded FIRE block and the execution result.
 fn trace_create(salt: u64, init_calls: &[Vec<u8>]) -> (Block, ExecutionResult) {
     let input = encode_create(VARIANT_ASSET, w(salt), ALICE, init_calls);
+    trace_tx(&[], FACTORY_ADDRESS, input, 2_000_000)
+}
+
+/// Runs the `setup` transactions `(to, input, gas limit)` untraced, then one traced transaction,
+/// all from ALICE in one block through a Jenner `BscEvm` carrying the Firehose inspector, and
+/// returns the decoded FIRE block and the traced transaction's result.
+fn trace_tx(
+    setup: &[(Address, Vec<u8>, u64)],
+    to: Address,
+    input: Vec<u8>,
+    gas: u64,
+) -> (Block, ExecutionResult) {
     let (mut tracer, buffer) = firehose_tracer::Tracer::with_buffer(
         firehose_tracer::config::Config::default(),
         firehose_tracer::config::ChainConfig {
@@ -110,24 +172,23 @@ fn trace_create(salt: u64, init_calls: &[Vec<u8>]) -> (Block, ExecutionResult) {
         finalized: None,
         flash_block: None,
     });
-    tracer.on_tx_start(tx_event(Bytes::from(input.clone())), None);
 
     let result = {
         let mut evm = jenner_evm(FirehoseInspector::new(&mut tracer));
-        let tx = TxEnv::builder()
-            .caller(ALICE)
-            .chain_id(Some(CHAIN_ID))
-            .gas_limit(2_000_000)
-            .gas_price(0)
-            .kind(TxKind::Call(FACTORY_ADDRESS))
-            .data(input.into())
-            .build()
-            .unwrap();
-        evm.inspect_one_tx(BscTxEnv::new(tx)).expect("tx executes")
+        {
+            let _untraced = reth_firehose::suspend_tracing();
+            for (to, input, gas) in setup {
+                let result = evm.inspect_tx_commit(tx_env(*to, input, *gas)).expect("tx executes");
+                assert!(result.is_success(), "setup transaction succeeds: {result:?}");
+            }
+        }
+        let event = tx_event(setup.len() as u32, to, Bytes::from(input.clone()), gas);
+        evm.inspector().tracer_mut().on_tx_start(event, None);
+        evm.inspect_tx_commit(tx_env(to, &input, gas)).expect("tx executes")
     };
 
     let mut receipt = ReceiptData::new(
-        0,
+        setup.len() as u32,
         result.tx_gas_used(),
         u64::from(result.is_success()),
         result.tx_gas_used(),
@@ -147,12 +208,21 @@ fn trace_create(salt: u64, init_calls: &[Vec<u8>]) -> (Block, ExecutionResult) {
     (decode_fire_block(&buffer.get_bytes()), result)
 }
 
-/// A Jenner EVM with the CAS20 registries planted and the token features opened.
-fn jenner_evm<I>(inspector: I) -> BscEvm<InMemoryDB, I> {
-    let mut cfg = CfgEnv::new_with_spec(BscHardfork::Jenner).with_chain_id(CHAIN_ID);
-    cfg.disable_nonce_check = true;
-    cfg.disable_balance_check = true;
-    let block = BlockEnv { timestamp: U256::from(1_800_000_000u64), ..Default::default() };
+fn tx_env(to: Address, input: &[u8], gas: u64) -> BscTxEnv {
+    let tx = TxEnv::builder()
+        .caller(ALICE)
+        .chain_id(Some(CHAIN_ID))
+        .gas_limit(gas)
+        .gas_price(0)
+        .kind(TxKind::Call(to))
+        .data(Bytes::copy_from_slice(input))
+        .build()
+        .unwrap();
+    BscTxEnv::new(tx)
+}
+
+/// State with the CAS20 registries planted and the token features opened.
+fn jenner_db() -> InMemoryDB {
     let mut db = InMemoryDB::default();
     db.insert_account_info(
         ALICE,
@@ -173,21 +243,30 @@ fn jenner_evm<I>(inspector: I) -> BscEvm<InMemoryDB, I> {
         U256::from(1),
     )
     .unwrap();
-    BscEvm::new(EvmEnv::new(cfg, block.into()), db, inspector, true, false)
+    db
 }
 
-fn tx_event(input: Bytes) -> TxEvent {
+/// A Jenner EVM over [`jenner_db`].
+fn jenner_evm<I>(inspector: I) -> BscEvm<InMemoryDB, I> {
+    let mut cfg = CfgEnv::new_with_spec(BscHardfork::Jenner).with_chain_id(CHAIN_ID);
+    cfg.disable_nonce_check = true;
+    cfg.disable_balance_check = true;
+    let block = BlockEnv { timestamp: U256::from(1_800_000_000u64), ..Default::default() };
+    BscEvm::new(EvmEnv::new(cfg, block.into()), jenner_db(), inspector, true, false)
+}
+
+fn tx_event(index: u32, to: Address, input: Bytes, gas: u64) -> TxEvent {
     TxEvent {
         tx_type: TxType::Legacy,
-        hash: B256::repeat_byte(0x11),
+        hash: B256::repeat_byte(0x11 + index as u8),
         from: ALICE,
-        to: Some(FACTORY_ADDRESS),
+        to: Some(to),
         input,
         value: U256::ZERO,
-        gas: 2_000_000,
+        gas,
         gas_price: U256::ZERO,
-        nonce: 0,
-        index: 0,
+        nonce: index as u64,
+        index,
         v: None,
         r: B256::ZERO,
         s: B256::ZERO,

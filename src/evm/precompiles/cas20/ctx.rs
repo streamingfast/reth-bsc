@@ -66,16 +66,7 @@ impl Cas20State for EvmInternals<'_> {
         value: U256,
     ) -> Result<StateLoad<SStoreResult>, String> {
         access_list::storage(address, key);
-        let result = EvmInternals::sstore(self, address, key, value).map_err(|e| e.to_string())?;
-        // Firehose: geth's hooked state reports each write as it happens; the journal alone
-        // loses the order, intermediate values and reverted writes.
-        reth_firehose::precompile_effects::record_storage_change(
-            address,
-            key,
-            result.data.present_value,
-            result.data.new_value,
-        );
-        Ok(result)
+        EvmInternals::sstore(self, address, key, value).map_err(|e| e.to_string())
     }
 
     fn code_hash(&mut self, address: Address) -> Result<StateLoad<B256>, String> {

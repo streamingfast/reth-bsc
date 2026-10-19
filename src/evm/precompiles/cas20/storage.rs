@@ -147,7 +147,18 @@ impl<'r, 'f, 'a> Store<'r, 'f, 'a> {
         let cost = STORAGE_GAS.sstore_static_gas()
             + STORAGE_GAS.sstore_dynamic_gas(true, &load.data, load.is_cold);
         self.ctx.frame.gas.refund += STORAGE_GAS.sstore_refund(true, &load.data);
-        self.ctx.charge_gas(cost)
+        if !self.ctx.charge_gas(cost) {
+            return false;
+        }
+        // Firehose: geth's hooked state reports each write as it happens, after its gas is paid;
+        // the journal alone loses the order, intermediate values and reverted writes.
+        reth_firehose::precompile_effects::record_storage_change(
+            self.at,
+            slot,
+            load.data.present_value,
+            load.data.new_value,
+        );
+        true
     }
 
     // --- fixed uint256 fields ---------------------------------------------------
