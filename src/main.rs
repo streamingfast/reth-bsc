@@ -166,6 +166,19 @@ fn user_set_gpo_ignore_price(mut args: impl Iterator<Item = String>) -> bool {
     args.any(|arg| arg == "--gpo.ignoreprice" || arg.starts_with("--gpo.ignoreprice="))
 }
 
+/// Firehose: the executor's `is_system_transaction` rule, from the effective gas price the
+/// Firehose wrapper computes at BSC's zero base fee.
+fn is_deferred_system_tx(
+    to: Option<alloy_primitives::Address>,
+    effective_gas_price: u128,
+    signer: alloy_primitives::Address,
+    beneficiary: alloy_primitives::Address,
+) -> bool {
+    signer == beneficiary &&
+        effective_gas_price == 0 &&
+        to.is_some_and(|to| reth_bsc::is_invoke_system_contract(&to))
+}
+
 fn main() -> eyre::Result<()> {
     // Override reth's global version metadata so startup/P2P logs identify
     // this binary as Reth-BSC with its own version + commit.
@@ -250,11 +263,7 @@ fn main() -> eyre::Result<()> {
     reth_firehose::set_chain_tracing_config(reth_firehose::ChainTracingConfig {
         fee_recipient: Some(reth_bsc::consensus::SYSTEM_ADDRESS),
         reward_blob_fee: true,
-        is_deferred_system_tx: |to, max_fee_per_gas, signer, beneficiary| {
-            signer == beneficiary &&
-                max_fee_per_gas == 0 &&
-                to.is_some_and(|to| reth_bsc::is_invoke_system_contract(&to))
-        },
+        is_deferred_system_tx,
         trace_finish_in_system_call: false,
         // BSC headers carry Some(0) base fee post-London; geth Firehose reports it as absent,
         // which also makes dynamic-fee tx gas_price report the fee cap like geth.
@@ -746,5 +755,51 @@ mod tests {
         assert!(user_set_gpo_ignore_price(args(&["reth-bsc", "node", "--gpo.ignoreprice=7"])));
         assert!(!user_set_gpo_ignore_price(args(&["reth-bsc", "node", "--chain", "bsc"])));
         assert!(!user_set_gpo_ignore_price(args(&["reth-bsc", "node", "--gpo.blocks", "20"])));
+    }
+}
+
+#[cfg(test)]
+mod firehose_tests {
+    use super::is_deferred_system_tx;
+    use alloy_consensus::{Signed, TxEip1559, TxLegacy};
+    use alloy_primitives::{Address, Signature, TxKind};
+    use reth_bsc::{is_system_transaction, SLASH_CONTRACT};
+    use reth_ethereum_primitives::TransactionSigned;
+
+    #[test]
+    fn deferred_system_txs_follow_the_executor_rule() {
+        let coinbase = Address::repeat_byte(0xc0);
+        let legacy = |gas_price| -> TransactionSigned {
+            Signed::new_unhashed(
+                TxLegacy { gas_price, to: TxKind::Call(SLASH_CONTRACT), ..Default::default() },
+                Signature::test_signature(),
+            )
+            .into()
+        };
+        let dynamic = |max_fee_per_gas, max_priority_fee_per_gas| -> TransactionSigned {
+            Signed::new_unhashed(
+                TxEip1559 {
+                    max_fee_per_gas,
+                    max_priority_fee_per_gas,
+                    to: TxKind::Call(SLASH_CONTRACT),
+                    ..Default::default()
+                },
+                Signature::test_signature(),
+            )
+            .into()
+        };
+
+        for tx in [legacy(0), legacy(1), dynamic(0, 0), dynamic(5_000_000_000, 0), dynamic(5, 1)] {
+            for signer in [coinbase, Address::repeat_byte(0x01)] {
+                use alloy_consensus::Transaction as _;
+                // The Firehose wrapper's effective price at BSC's zero base fee.
+                let effective = tx.effective_gas_price(Some(0));
+                assert_eq!(
+                    is_deferred_system_tx(tx.to(), effective, signer, coinbase),
+                    is_system_transaction(&tx, signer, coinbase),
+                    "{tx:?} from {signer}"
+                );
+            }
+        }
     }
 }
