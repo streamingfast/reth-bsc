@@ -7,6 +7,38 @@ This changelog covers Firehose-specific changes only. For upstream changes, see 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## v0.1.3-fh3.1
+
+### Changed
+
+- Rebased onto upstream `v0.1.3` (`f0b444f`), the release for the Chapel Jenner hardfork
+  (BEP-718) at 2026-10-29 02:30:00 UTC (`1793241000`): BEP-702 CAS20 stateful precompiles,
+  BEP-703 Payment Lane, the BEP-706 millisecond timestamp precompile at `0x70`, per-byte pricing
+  of the `0x68` double-sign evidence precompile, and BEP-675 BidBlock gRPC and revocation
+  changes. Mainnet Jenner is not scheduled. The reth pin moves to `streamingfast/reth`
+  `bnb-v0.1.3-fh3.1-1`, which tracks bnb-chain/reth `v0.1.3`.
+- `ACTIVATIONS.md` lists each hardfork, its status on mainnet and Chapel, and its effect on the
+  Firehose block.
+
+### Fixed
+
+- Payment Lane metadata reads no longer appear in the Firehose block. They run on the traced EVM
+  only when the lane cache misses (for example after a restart), so tracing them would have
+  added system calls that differ between nodes; geth reads the same values from raw state.
+- CAS20 precompile calls now appear in the Firehose block as they do in geth: storage changes
+  and logs keep the order the precompile made them in, a slot written twice in one call reports
+  its intermediate value, and a reverted call keeps its storage changes, code install and logs.
+  The precompiles report each write to `reth_firehose::precompile_effects` as they make it,
+  instead of the inspector reading them back from the journal when the call ends.
+- A CAS20 storage write that runs out of gas is no longer reported. geth charges a write before
+  making it, so a call that runs out of gas on a write never shows that write.
+- A system transaction sent as a dynamic-fee transaction with a zero tip and a non-zero fee cap
+  is recognized as a system transaction, as the executor does. Firehose traced it as a normal
+  transaction and the node panicked on its missing receipt.
+- `eth_call`, `eth_estimateGas`, `debug_traceCall` and `eth_simulateV1` with a time or number
+  override that crosses a hardfork run under the overridden block's fork again; the Firehose EVM
+  config skipped the override rules (streamingfast/reth `bnb-v0.1.3-fh3.1-1`).
+
 ## v0.1.2-fh3.1-3
 
 ### Changed
