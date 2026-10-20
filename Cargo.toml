@@ -286,3 +286,5 @@ required-features = ["bench-test"]
 # SF fork of alloy-evm that routes system calls (EIP-4788, EIP-2935, etc.) through the Inspector.
 # See https://github.com/alloy-rs/evm/pull/323 for the upstream PR.
 alloy-evm = { git = "https://github.com/streamingfast/evm.git", branch = "sf/v0.34.0" }
+# Replace with a crates.io bump once streamingfast/evm-firehose-tracer-rs#39 is released.
+firehose-tracer = { git = "https://github.com/streamingfast/evm-firehose-tracer-rs.git", branch = "feature/fire-block-time" }

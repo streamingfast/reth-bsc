@@ -161,8 +161,11 @@ pub fn calculate_millisecond_timestamp(header: &Header) -> u64 {
 
 /// The sub-second millisecond remainder encoded in the header's `mix_hash` tail (BEP-520).
 pub fn millisecond_remainder(header: &Header) -> u64 {
-    let mix_digest = header.mix_hash;
+    mix_hash_milliseconds(header.mix_hash)
+}
 
+/// The millisecond remainder carried by a header `mix_hash` (BEP-520); 0 when it is zero.
+pub fn mix_hash_milliseconds(mix_digest: B256) -> u64 {
     if mix_digest != B256::ZERO {
         let bytes = mix_digest.as_slice();
         // Convert last 8 bytes to u64 (big-endian), equivalent to Go's uint256.SetBytes32().Uint64()
