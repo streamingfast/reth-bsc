@@ -3895,7 +3895,7 @@ checksum = "5baebc0774151f905a1a2cc41989300b1e6fbb29aff0ceffa1064fdd3088d582"
 [[package]]
 name = "firehose-tracer"
 version = "5.5.0"
-source = "git+https://github.com/streamingfast/evm-firehose-tracer-rs.git?branch=feature%2Ffire-block-time#0fbe8aba7a0e2eb9d73f2fd36baa5f0e1f5747fd"
+source = "git+https://github.com/streamingfast/evm-firehose-tracer-rs.git?branch=feature%2Ffire-block-time#8151109fed6f177452bf76444eabfff85d735337"
 dependencies = [
  "alloy-consensus",
  "alloy-eips 2.0.5",
