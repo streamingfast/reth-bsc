@@ -5,7 +5,7 @@ use reth::{
     consensus::FullConsensus,
     version::{default_reth_version_metadata, try_init_version_metadata},
 };
-use reth_bsc::consensus::parlia::bls_signer;
+use reth_bsc::consensus::parlia::{bls_signer, util::mix_hash_milliseconds};
 use reth_bsc::node::consensus::BscConsensus;
 use reth_bsc::{
     chainspec::{genesis_override, parser::BscChainSpecParser},
@@ -14,6 +14,7 @@ use reth_bsc::{
 };
 use std::path::PathBuf;
 use std::sync::Arc;
+use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
 // We use jemalloc for performance reasons
 #[cfg(all(feature = "jemalloc", unix))]
@@ -179,6 +180,12 @@ fn is_deferred_system_tx(
         to.is_some_and(|to| reth_bsc::is_invoke_system_contract(&to))
 }
 
+/// Firehose: the FIRE BLOCK line time, with the BEP-520 millisecond remainder that Lorentz+
+/// headers carry in `mix_hash` (zero before Lorentz, leaving whole seconds).
+fn fire_block_time(block: &firehose_tracer::types::BlockData) -> SystemTime {
+    UNIX_EPOCH + Duration::from_millis(block.time * 1_000 + mix_hash_milliseconds(block.mix_digest))
+}
+
 fn main() -> eyre::Result<()> {
     // Override reth's global version metadata so startup/P2P logs identify
     // this binary as Reth-BSC with its own version + commit.
@@ -250,6 +257,7 @@ fn main() -> eyre::Result<()> {
     } else {
         reth_firehose::init_tracer(firehose_tracer::config::Config {
             chain_client: firehose_tracer::config::ChainClient::Reth,
+            fire_block_time: Some(fire_block_time),
             ..Default::default()
         });
     }
@@ -760,11 +768,13 @@ mod tests {
 
 #[cfg(test)]
 mod firehose_tests {
-    use super::is_deferred_system_tx;
+    use super::{fire_block_time, is_deferred_system_tx};
     use alloy_consensus::{Signed, TxEip1559, TxLegacy};
-    use alloy_primitives::{Address, Signature, TxKind};
+    use alloy_primitives::{Address, Signature, TxKind, B256};
+    use firehose_tracer::types::BlockData;
     use reth_bsc::{is_system_transaction, SLASH_CONTRACT};
     use reth_ethereum_primitives::TransactionSigned;
+    use std::time::{Duration, UNIX_EPOCH};
 
     #[test]
     fn deferred_system_txs_follow_the_executor_rule() {
@@ -801,5 +811,23 @@ mod firehose_tests {
                 );
             }
         }
+    }
+
+    #[test]
+    fn fire_block_time_includes_mix_hash_milliseconds() {
+        let mut mix_digest = [0u8; 32];
+        mix_digest[24..].copy_from_slice(&750u64.to_be_bytes());
+        let lorentz = BlockData {
+            time: 1_745_000_000,
+            mix_digest: B256::from(mix_digest),
+            ..Default::default()
+        };
+        assert_eq!(
+            fire_block_time(&lorentz),
+            UNIX_EPOCH + Duration::from_millis(1_745_000_000_750)
+        );
+
+        let pre_lorentz = BlockData { time: 1_700_000_000, ..Default::default() };
+        assert_eq!(fire_block_time(&pre_lorentz), UNIX_EPOCH + Duration::from_secs(1_700_000_000));
     }
 }

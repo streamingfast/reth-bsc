@@ -7,6 +7,15 @@ This changelog covers Firehose-specific changes only. For upstream changes, see 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## v0.1.3-fh3.1-1
+
+### Changed
+
+- The `<timestamp_unix_nano>` field of each FIRE BLOCK line, which becomes the Firehose block
+  time, now includes the millisecond remainder that Lorentz and later headers carry in
+  `mix_hash` (BEP-520), like go-bsc's `Header.MilliTimestamp()`. Pre-Lorentz blocks keep
+  whole seconds. The Ethereum block header's `timestamp` is unchanged.
+
 ## v0.1.3-fh3.1
 
 ### Changed
