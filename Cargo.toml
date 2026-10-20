@@ -40,7 +40,7 @@ reth-ethereum-primitives = { git = "https://github.com/streamingfast/reth.git", 
 
 # Firehose
 reth-firehose = { git = "https://github.com/streamingfast/reth.git", tag = "bnb-v0.1.3-fh3.1-1" }
-firehose-tracer = "5.5.0"
+firehose-tracer = "5.6.0"
 reth-eth-wire = { git = "https://github.com/streamingfast/reth.git", tag = "bnb-v0.1.3-fh3.1-1" }
 reth-eth-wire-types = { git = "https://github.com/streamingfast/reth.git", tag = "bnb-v0.1.3-fh3.1-1" }
 reth-errors = { git = "https://github.com/streamingfast/reth.git", tag = "bnb-v0.1.3-fh3.1-1" }
@@ -286,5 +286,3 @@ required-features = ["bench-test"]
 # SF fork of alloy-evm that routes system calls (EIP-4788, EIP-2935, etc.) through the Inspector.
 # See https://github.com/alloy-rs/evm/pull/323 for the upstream PR.
 alloy-evm = { git = "https://github.com/streamingfast/evm.git", branch = "sf/v0.34.0" }
-# Replace with a crates.io bump once streamingfast/evm-firehose-tracer-rs#39 is released.
-firehose-tracer = { git = "https://github.com/streamingfast/evm-firehose-tracer-rs.git", branch = "feature/fire-block-time" }
