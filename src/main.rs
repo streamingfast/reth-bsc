@@ -712,14 +712,8 @@ fn main() -> eyre::Result<()> {
                         }
                         Ok(())
                     })
-                    .install_exex("firehose", |ctx| async move {
-                        // Box::pin works around a rustc higher-ranked lifetime limitation when
-                        // proving the (deeply generic) run_exex future Send inside this closure.
-                        Ok(Box::pin(reth_firehose::run_exex(ctx))
-                            as std::pin::Pin<
-                                Box<dyn std::future::Future<Output = eyre::Result<()>> + Send>,
-                            >)
-                    })
+                    // Runs before the consensus engine exists, so FIRE INIT precedes any traced block.
+                    .on_component_initialized(|node| reth_firehose::init_blockchain(&node.provider))
                     .launch().await?;
 
             // Send the engine handle to the network
