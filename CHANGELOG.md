@@ -15,7 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   genesis block are now emitted once the node's components are built, before the consensus
   engine starts, and the node stops writing the ExEx write-ahead log (and its
   `WAL contains too many blocks` warning). The reth pin moves to `streamingfast/reth`
-  `firehose-remove-exex/bnb-0.x` (`ac26ba5`).
+  `bnb-v0.1.3-fh3.1-2`.
 
 ## v0.1.3-fh3.1-1
 
