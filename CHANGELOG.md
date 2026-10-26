@@ -7,6 +7,15 @@ This changelog covers Firehose-specific changes only. For upstream changes, see 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## v0.1.3-fh3.1-3
+
+### Fixed
+
+- Fork recovery now skips heads more than 64 blocks below the local tip, so a stale fork block
+  announced through `NewBlockHashes` no longer makes the engine rebuild old state from the
+  database and stall block import for 5 minutes. Cherry-picked from
+  [bnb-chain/reth-bsc#588](https://github.com/bnb-chain/reth-bsc/pull/588).
+
 ## v0.1.3-fh3.1-2
 
 ### Changed
