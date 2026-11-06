@@ -4,7 +4,7 @@ Every hardfork reth-bsc defines, its status on the clusters we serve, and what i
 Firehose block. Statuses come from `src/hardforks/bsc.rs` and were cross-checked against
 bnb-chain/bsc `params/config.go` at the same release.
 
-Last checked: 2026-11-03, reth-bsc `v0.1.4` / bsc `v1.8.2`.
+Last checked: 2026-11-06, reth-bsc `v0.1.4-hotfix` / bsc `v1.8.2`.
 
 ## Jenner (BEP-718)
 

@@ -7,6 +7,15 @@ This changelog covers Firehose-specific changes only. For upstream changes, see 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## v0.1.4-hotfix-fh3.1
+
+### Fixed
+
+- Merged upstream `v0.1.4-hotfix`, which fixes the legacy state-root calculation that could
+  compute a wrong root under specific trie conditions and make the node reject a valid block.
+  The reth pin moves to `streamingfast/reth` `bnb-v0.1.4-fh3.1`, which tracks bnb-chain/reth
+  `v0.1.4`. The Firehose block is unchanged.
+
 ## v0.1.4-fh3.1
 
 ### Changed
