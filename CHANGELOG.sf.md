@@ -155,6 +155,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   irreversible and saw it replaced by the reorg. Seen on mainnet at 120653740, where a four-block
   branch was published with LIB 120653741, one of them naming a height above the block itself.
 
+## v0.1.1-fh3.1
+
+### Changed
+
+- The reth crates now come from `streamingfast/reth` tag `bnb-v0.1.1-fh3.1` (branch
+  `release/bnb-0.x`) instead of the `streamingfast/bnb-reth` branch `firehose/0.1.x-bsc`,
+  `testing/bsc-ef-tests` included.
+
+### Fixed
+
+- A node started on an empty chain now emits the genesis block (block 0, with its full alloc) as a
+  `FIRE BLOCK` line. The genesis block is written to the database without being executed, so
+  Firehose streams used to start at block 1. Block 1 is now traced as a normal block. Ported from
+  streamingfast/reth#23 through streamingfast/bnb-reth#2.
+
 ## v0.1.1-fh
 
 Release ready for prime time
@@ -181,6 +196,15 @@ Release ready for prime time
   inspector when tracing), and the canonical block size again excludes blob sidecars.
   (beta-10/11 traces were missing `system_calls` entirely and misreported `size` on blob
   blocks.)
+
+## v0.1.1-fh-beta-11
+
+### Added
+
+- When the node rejects a block because its system transactions do not match
+  (`UnexpectedSystemTx`), it logs the gas used by each transaction it executed (log target
+  `bsc::executor::diagnostic`), so the diverging transaction can be found by comparing with the
+  canonical receipts.
 
 ## v0.1.1-fh-beta-10
 
