@@ -159,7 +159,7 @@ jobs:
           chmod +x sfreleaser
 
           ./sfreleaser changelog extract-section \
-            github://token:${{ github.token }}@${{ github.repository }}/$GITHUB_SHA/CHANGELOG.md \
+            github://token:${{ github.token }}@${{ github.repository }}/$GITHUB_SHA/CHANGELOG.sf.md \
             --github-output="changelog:$GITHUB_OUTPUT"
 
       - name: Release
